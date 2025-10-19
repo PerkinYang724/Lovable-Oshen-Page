@@ -49,7 +49,7 @@ const Hero = () => {
           textWrap: 'balance',
           lineHeight: '1.15'
         }}>
-            <span className="cinematic-gradient-text cinematic-text-shadow">Done-for-You Video Editing That Builds Authority, Generates Clients, and Grows Your Business</span>
+            <span className="cinematic-gradient-text cinematic-text-shadow">AI × Flow × Freedom</span>
           </h1>
         </div>
 
@@ -57,7 +57,7 @@ const Hero = () => {
         <div className="text-center mb-6">
           <p className="text-xl md:text-2xl text-gray-200 font-medium max-w-3xl mx-auto cinematic-text-shadow" style={{
           lineHeight: '1.45'
-        }}>From raw footage to viral-quality content that grabs attention, builds trust, and sells your services on autopilot.</p>
+        }}>Empowering students and creators with AI tools and creative workflows to build meaningful projects</p>
         </div>
 
         {/* Subtitle 2 */}
@@ -65,19 +65,22 @@ const Hero = () => {
           <p className="text-base md:text-lg text-gray-300 font-normal max-w-3xl mx-auto cinematic-text-shadow" style={{
           lineHeight: '1.5'
         }}>
-            <span className="font-semibold text-yellow-400">30-Day Performance Guarantee:</span> If your new video doesn't lift one agreed metric (e.g., demo bookings, trial sign-ups, or trial→paid) within 30 days of launch, we'll keep producing iterations free until it does.
+            Learn AI tools, master creative workflows, and design a life of <span className="font-semibold text-yellow-400">focus, freedom, and flow</span>
           </p>
         </div>
 
         {/* CTA Button */}
-        <div className="flex justify-center mb-16">
-          <Button size="lg" className="cinematic-cta text-lg px-10 py-6 font-semibold shadow-2xl hover:shadow-glow transition-all duration-500 transform hover:scale-105" onClick={() => window.open('https://calendly.com/kvit/15-minutes-discovery-call', '_blank')}>
-            Get Your Free Video Growth Plan →
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+          <Button size="lg" className="cinematic-cta text-lg px-10 py-6 font-semibold shadow-2xl hover:shadow-glow transition-all duration-500 transform hover:scale-105" onClick={() => window.scrollTo({ top: document.getElementById('demo-video')?.offsetTop || 0, behavior: 'smooth' })}>
+            Watch Demo
+          </Button>
+          <Button size="lg" variant="outline" className="border-white/20 text-white hover:bg-white/10 text-lg px-10 py-6 font-semibold transition-all duration-300" onClick={() => window.scrollTo({ top: document.getElementById('community')?.offsetTop || 0, behavior: 'smooth' })}>
+            Join Community
           </Button>
         </div>
 
-        {/* Wistia Video Player */}
-        <div className="relative max-w-4xl mx-auto mb-20" style={{
+        {/* Demo Video */}
+        <div id="demo-video" className="relative max-w-4xl mx-auto mb-20" style={{
         contain: 'layout'
       }}>
           <div className="relative cinematic-video-container overflow-hidden shadow-cinematic border border-white/10" style={{
@@ -97,14 +100,20 @@ const Hero = () => {
         }}></div>
         </div>
 
-        {/* Logos Carousel */}
-        <div className="relative" style={{
-        contain: 'layout'
-      }}>
-          <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-white cinematic-text-shadow">Trusted By</h2>
+        {/* Stats */}
+        <div className="grid grid-cols-3 gap-8 max-w-3xl mx-auto">
+          <div className="text-center">
+            <div className="text-4xl md:text-5xl font-bold cinematic-gradient-text mb-2">5+</div>
+            <div className="text-gray-300">AI Tools Mastered</div>
           </div>
-          <ScrollingBrands />
+          <div className="text-center">
+            <div className="text-4xl md:text-5xl font-bold cinematic-gradient-text mb-2">3</div>
+            <div className="text-gray-300">Projects Launched</div>
+          </div>
+          <div className="text-center">
+            <div className="text-4xl md:text-5xl font-bold cinematic-gradient-text mb-2">100+</div>
+            <div className="text-gray-300">Hours Creating</div>
+          </div>
         </div>
       </div>
     </section>;

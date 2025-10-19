@@ -22,96 +22,101 @@ const Footer = () => {
         <div className="grid md:grid-cols-3 gap-8">
           <div className="space-y-4">
             <div className="text-2xl font-bold cinematic-gradient-text">
-              ContentFarm
+              Oshen Studio
             </div>
             <p className="text-gray-300">
-              We help SaaS startups scale with high-converting video content that drives real business results.
+              Empowering students and creators with AI tools, workflows, and insights to build meaningful projects.
             </p>
-            <div className="space-y-2">
-              <div className="flex items-center gap-2 text-gray-300">
-                <MapPin className="h-4 w-4" />
-                <span>Lisbon, Portugal</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <a 
-                  href="https://www.linkedin.com/in/yuliya-yuvchenko/" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="flex items-center gap-2 text-gray-300 hover:text-yellow-400 transition-colors"
-                >
-                  <Linkedin className="h-4 w-4" />
-                  <span>Connect on LinkedIn</span>
-                </a>
-              </div>
-            </div>
+            <p className="text-sm text-gray-400 italic">
+              "Built with creativity and AI"
+            </p>
           </div>
 
           <div>
-            <h4 className="text-lg font-semibold mb-4 text-yellow-400">Services</h4>
+            <h4 className="text-lg font-semibold mb-4 text-yellow-400">Explore</h4>
             <ul className="space-y-2 text-gray-300">
               <li>
-                <Link 
-                  to="/product-demo-videos" 
+                <button 
+                  onClick={() => window.scrollTo({ top: document.getElementById('tools')?.offsetTop || 0, behavior: 'smooth' })}
                   className="hover:text-yellow-400 transition-colors"
                 >
-                  Product Demo Videos
-                </Link>
+                  AI Tools
+                </button>
               </li>
               <li>
-                <Link 
-                  to="/#services" 
+                <button 
+                  onClick={() => window.scrollTo({ top: document.getElementById('projects')?.offsetTop || 0, behavior: 'smooth' })}
                   className="hover:text-yellow-400 transition-colors"
-                  onClick={() => handleSectionNavigation('#services')}
                 >
-                  Explainer Videos
-                </Link>
+                  Projects
+                </button>
               </li>
               <li>
-                <Link 
-                  to="/#services" 
+                <button 
+                  onClick={() => window.scrollTo({ top: document.getElementById('journey')?.offsetTop || 0, behavior: 'smooth' })}
                   className="hover:text-yellow-400 transition-colors"
-                  onClick={() => handleSectionNavigation('#services')}
                 >
-                  Onboarding Videos
-                </Link>
+                  Journey
+                </button>
               </li>
               <li>
-                <Link 
-                  to="/#services" 
+                <button 
+                  onClick={() => window.scrollTo({ top: document.getElementById('about')?.offsetTop || 0, behavior: 'smooth' })}
                   className="hover:text-yellow-400 transition-colors"
-                  onClick={() => handleSectionNavigation('#services')}
                 >
-                  Webinar Repurposing
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  to="/#services" 
-                  className="hover:text-yellow-400 transition-colors"
-                  onClick={() => handleSectionNavigation('#services')}
-                >
-                  YouTube Content
-                </Link>
+                  About Perkin
+                </button>
               </li>
             </ul>
           </div>
 
           <div>
-            <h4 className="text-lg font-semibold mb-4 text-yellow-400">Company</h4>
+            <h4 className="text-lg font-semibold mb-4 text-yellow-400">Connect</h4>
             <ul className="space-y-2 text-gray-300">
-              <li><Link to="/about" className="hover:text-yellow-400 transition-colors">About Us</Link></li>
-              <li><Link to="/case-studies" className="hover:text-yellow-400 transition-colors">Case Studies</Link></li>
-              <li><Link to="/blog" className="hover:text-yellow-400 transition-colors">Blog</Link></li>
-              <li><Link to="/youtube-script-generator" className="hover:text-yellow-400 transition-colors">YouTube Script Generator</Link></li>
-              <li><Link to="/pricing" className="hover:text-yellow-400 transition-colors">Pricing</Link></li>
-              <li><Link to="/career" className="hover:text-yellow-400 transition-colors">Career</Link></li>
+              <li>
+                <a 
+                  href="https://instagram.com/oshenstudio" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="hover:text-yellow-400 transition-colors"
+                >
+                  Instagram
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="https://linkedin.com/in/perkin" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="hover:text-yellow-400 transition-colors flex items-center gap-2"
+                >
+                  <Linkedin className="h-4 w-4" />
+                  LinkedIn
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="mailto:hello@oshenstudio.com"
+                  className="hover:text-yellow-400 transition-colors"
+                >
+                  Email
+                </a>
+              </li>
+              <li>
+                <button 
+                  onClick={() => window.scrollTo({ top: document.getElementById('community')?.offsetTop || 0, behavior: 'smooth' })}
+                  className="hover:text-yellow-400 transition-colors"
+                >
+                  Newsletter
+                </button>
+              </li>
             </ul>
           </div>
         </div>
 
         <div className="border-t border-white/10 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-gray-300 text-sm">© 2025 ContentFarm. All rights reserved.</p>
+            <p className="text-gray-300 text-sm">© 2025 Oshen Studio. All rights reserved.</p>
             <div className="flex gap-6 text-sm text-gray-300">
               <Link to="/privacy-policy" className="hover:text-yellow-400 transition-colors">Privacy Policy</Link>
               <Link to="/terms-of-service" className="hover:text-yellow-400 transition-colors">Terms of Service</Link>

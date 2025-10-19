@@ -13,10 +13,10 @@ interface SEOProps {
 }
 
 const SEO = ({ 
-  title = "ContentFarm - Video Content That Converts | SaaS Video Production Agency",
-  description = "ContentFarm creates high-converting video content for SaaS companies. Product demos, explainers, and onboarding videos with 30-day results guarantee.",
-  keywords = "SaaS video production, product demo videos, explainer videos, video marketing",
-  image = "https://contentfarm.club/lovable-uploads/42844e19-815c-453d-9d1d-66e5ec0590fb.png",
+  title = "Oshen Studio - AI × Flow × Freedom | Student Founder & Creator",
+  description = "Oshen Studio by Perkin - Empowering students and creators with AI tools, creative workflows, and entrepreneurial insights.",
+  keywords = "AI tools for creators, student founder, AI workflows, creative automation, productivity",
+  image = "https://oshenstudio.com/lovable-uploads/42844e19-815c-453d-9d1d-66e5ec0590fb.png",
   url,
   type = "website",
   noIndex = false

@@ -9,11 +9,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
-interface ModernHeaderProps {
-  onOfferClick?: () => void;
-}
-
-const ModernHeader = ({ onOfferClick }: ModernHeaderProps = {}) => {
+const ModernHeader = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
@@ -76,103 +72,49 @@ const ModernHeader = ({ onOfferClick }: ModernHeaderProps = {}) => {
               to="/" 
               className="text-2xl font-bold gradient-text hover:scale-105 transition-transform duration-300"
             >
-              ContentFarm
+              Oshen Studio
             </Link>
           </div>
           
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-6">
-            {/* Services Dropdown */}
-            <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center space-x-1 text-foreground hover:text-primary transition-colors duration-200 font-medium focus:outline-none whitespace-nowrap">
-                <span>Services</span>
-                <ChevronDown className="h-4 w-4" />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56 bg-background/95 backdrop-blur-xl border border-border/50 shadow-xl">
-                <DropdownMenuItem asChild>
-                  <Link 
-                    to="/shorts"
-                    className="w-full text-foreground hover:text-primary hover:bg-accent/50 transition-colors duration-200"
-                  >
-                    Shorts
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link 
-                    to="/product-demo-videos"
-                    className="w-full text-foreground hover:text-primary hover:bg-accent/50 transition-colors duration-200"
-                  >
-                    Product Demo Videos
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link 
-                    to="/video-production"
-                    className="w-full text-foreground hover:text-primary hover:bg-accent/50 transition-colors duration-200"
-                  >
-                    Video Production
-                  </Link>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-
-            <Link 
-              to="/#how-it-works" 
-              onClick={() => handleSectionNavigation('#how-it-works')}
+            <button 
+              onClick={() => window.scrollTo({ top: document.getElementById('tools')?.offsetTop || 0, behavior: 'smooth' })}
               className="text-foreground hover:text-primary transition-colors duration-200 font-medium whitespace-nowrap"
             >
-              How It Works
-            </Link>
+              Tools
+            </button>
 
-            <Link 
-              to="/case-studies" 
+            <button 
+              onClick={() => window.scrollTo({ top: document.getElementById('projects')?.offsetTop || 0, behavior: 'smooth' })}
               className="text-foreground hover:text-primary transition-colors duration-200 font-medium whitespace-nowrap"
             >
-              Case Study
-            </Link>
+              Projects
+            </button>
 
-            <Link 
-              to="/youtube-script-generator" 
+            <button 
+              onClick={() => window.scrollTo({ top: document.getElementById('journey')?.offsetTop || 0, behavior: 'smooth' })}
               className="text-foreground hover:text-primary transition-colors duration-200 font-medium whitespace-nowrap"
             >
-              Script Generator
-            </Link>
+              Journey
+            </button>
 
-            <Link 
-              to="/about" 
+            <button 
+              onClick={() => window.scrollTo({ top: document.getElementById('about')?.offsetTop || 0, behavior: 'smooth' })}
               className="text-foreground hover:text-primary transition-colors duration-200 font-medium whitespace-nowrap"
             >
               About
-            </Link>
+            </button>
           </nav>
 
-          {/* CTA Buttons */}
+          {/* CTA Button */}
           <div className="hidden md:flex items-center gap-3">
-            {onOfferClick && (
-              <Button 
-                onClick={onOfferClick}
-                variant="outline"
-                className="font-semibold border-orange-500/50 text-orange-500 hover:bg-orange-500/10 transition-all duration-300 hover:scale-105"
-              >
-                🎉 Special Offer
-              </Button>
-            )}
-            <Link to="/pricing">
-              <Button 
-                variant="outline"
-                className="font-semibold border-primary/50 text-primary hover:bg-primary/10 transition-all duration-300 hover:scale-105 flex items-center gap-2"
-              >
-                <Calculator className="w-4 h-4" />
-                ROI Calculator
-              </Button>
-            </Link>
-            <a href="https://calendly.com/kvit/15-minutes-discovery-call" target="_blank" rel="noopener noreferrer">
-              <Button 
-                className="btn-gradient font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-              >
-                Get Quote
-              </Button>
-            </a>
+            <Button 
+              onClick={() => window.scrollTo({ top: document.getElementById('community')?.offsetTop || 0, behavior: 'smooth' })}
+              className="btn-gradient font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+            >
+              Join Community
+            </Button>
           </div>
 
           {/* Mobile menu button */}
@@ -192,100 +134,67 @@ const ModernHeader = ({ onOfferClick }: ModernHeaderProps = {}) => {
           isMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
         }`}>
           <nav className="py-6 border-t border-border/30 space-y-4">
-            <Link 
-              to="/" 
-              className="block text-foreground hover:text-primary transition-colors duration-200 font-medium py-2"
-              onClick={() => setIsMenuOpen(false)}
+            <button 
+              onClick={() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                setIsMenuOpen(false);
+              }}
+              className="block w-full text-left text-foreground hover:text-primary transition-colors duration-200 font-medium py-2"
             >
               Home
-            </Link>
+            </button>
 
-            {/* Mobile Services */}
-            <div className="space-y-2">
-              <div className="text-foreground font-medium py-2">Services</div>
-              {servicesItems.map((item) => (
-                <Link 
-                  key={item.href}
-                  to={item.href}
-                  className="block text-muted-foreground hover:text-primary transition-colors duration-200 pl-4 py-1"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </div>
-
-            <Link 
-              to="/case-studies" 
-              className="block text-foreground hover:text-primary transition-colors duration-200 font-medium py-2"
-              onClick={() => setIsMenuOpen(false)}
+            <button 
+              onClick={() => {
+                window.scrollTo({ top: document.getElementById('tools')?.offsetTop || 0, behavior: 'smooth' });
+                setIsMenuOpen(false);
+              }}
+              className="block w-full text-left text-foreground hover:text-primary transition-colors duration-200 font-medium py-2"
             >
-              Showcase
-            </Link>
-            
-            <Link 
-              to="/#how-it-works" 
-              className="block text-foreground hover:text-primary transition-colors duration-200 font-medium py-2"
-              onClick={() => handleSectionNavigation('#how-it-works')}
+              Tools
+            </button>
+
+            <button 
+              onClick={() => {
+                window.scrollTo({ top: document.getElementById('projects')?.offsetTop || 0, behavior: 'smooth' });
+                setIsMenuOpen(false);
+              }}
+              className="block w-full text-left text-foreground hover:text-primary transition-colors duration-200 font-medium py-2"
             >
-              How It Works
-            </Link>
+              Projects
+            </button>
 
-            {/* Mobile Resources */}
-            <div className="space-y-2">
-              <div className="text-foreground font-medium py-2">Resources</div>
-              {resourcesItems.map((item) => (
-                <Link 
-                  key={item.href}
-                  to={item.href}
-                  className="block text-muted-foreground hover:text-primary transition-colors duration-200 pl-4 py-1"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </div>
+            <button 
+              onClick={() => {
+                window.scrollTo({ top: document.getElementById('journey')?.offsetTop || 0, behavior: 'smooth' });
+                setIsMenuOpen(false);
+              }}
+              className="block w-full text-left text-foreground hover:text-primary transition-colors duration-200 font-medium py-2"
+            >
+              Journey
+            </button>
 
-            <Link 
-              to="/about" 
-              className="block text-foreground hover:text-primary transition-colors duration-200 font-medium py-2"
-              onClick={() => setIsMenuOpen(false)}
+            <button 
+              onClick={() => {
+                window.scrollTo({ top: document.getElementById('about')?.offsetTop || 0, behavior: 'smooth' });
+                setIsMenuOpen(false);
+              }}
+              className="block w-full text-left text-foreground hover:text-primary transition-colors duration-200 font-medium py-2"
             >
               About
-            </Link>
+            </button>
 
-            {/* Mobile CTAs */}
-            <div className="pt-4 space-y-3">
-              {onOfferClick && (
-                <Button 
-                  onClick={() => {
-                    onOfferClick();
-                    setIsMenuOpen(false);
-                  }}
-                  variant="outline"
-                  className="w-full font-semibold border-orange-500/50 text-orange-500 hover:bg-orange-500/10"
-                >
-                  🎉 Special Offer
-                </Button>
-              )}
-              <Link to="/pricing">
-                <Button 
-                  variant="outline"
-                  className="w-full font-semibold border-primary/50 text-primary hover:bg-primary/10 flex items-center justify-center gap-2"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <Calculator className="w-4 h-4" />
-                  ROI Calculator
-                </Button>
-              </Link>
-              <a href="https://calendly.com/kvit/15-minutes-discovery-call" target="_blank" rel="noopener noreferrer">
-                <Button 
-                  className="btn-gradient w-full font-semibold shadow-lg"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Get Quote
-                </Button>
-              </a>
+            {/* Mobile CTA */}
+            <div className="pt-4">
+              <Button 
+                onClick={() => {
+                  window.scrollTo({ top: document.getElementById('community')?.offsetTop || 0, behavior: 'smooth' });
+                  setIsMenuOpen(false);
+                }}
+                className="btn-gradient w-full font-semibold shadow-lg"
+              >
+                Join Community
+              </Button>
             </div>
           </nav>
         </div>
