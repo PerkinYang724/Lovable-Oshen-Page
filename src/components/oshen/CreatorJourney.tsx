@@ -7,21 +7,21 @@ const CreatorJourney = () => {
       category: "Building Oshen Studio",
       title: "From Student Founder to Creator",
       description: "How I'm combining AI, creativity, and entrepreneurship to build something meaningful",
-      image: "/lovable-uploads/47f8806e-3150-4774-b551-83e624d0fa40.jpg"
+      image: "/lovable-uploads/IMG_20240606_161728_873.JPG"
     },
     {
       icon: Pen,
       category: "What I Learned",
       title: "Using AI Tools Daily for 6 Months",
       description: "The patterns, insights, and productivity gains from making AI part of my everyday workflow",
-      image: "/lovable-uploads/47f8806e-3150-4774-b551-83e624d0fa40.jpg"
+      image: "/lovable-uploads/IMG_20240602_153113_482.JPG"
     },
     {
       icon: Camera,
       category: "Creative Workflows",
       title: "My Content Creation System",
       description: "How I use automation and AI to create more while doing less",
-      image: "/lovable-uploads/47f8806e-3150-4774-b551-83e624d0fa40.jpg"
+      image: "/lovable-uploads/IMG_20240601_134227_301.JPG"
     }
   ];
 
@@ -39,13 +39,13 @@ const CreatorJourney = () => {
 
         <div className="grid md:grid-cols-3 gap-8">
           {posts.map((post, index) => (
-            <div 
+            <div
               key={index}
               className="cinematic-card overflow-hidden hover:scale-105 transition-transform duration-300 group cursor-pointer"
             >
               <div className="relative h-48 overflow-hidden">
-                <img 
-                  src={post.image} 
+                <img
+                  src={post.image}
                   alt={post.title}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />

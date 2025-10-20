@@ -6,7 +6,7 @@ const AboutPerkin = () => {
           <div className="relative">
             <div className="aspect-square rounded-2xl overflow-hidden cinematic-card">
               <img 
-                src="/lovable-uploads/47f8806e-3150-4774-b551-83e624d0fa40.jpg" 
+                src="/lovable-uploads/IMG_5768.jpeg" 
                 alt="Perkin - Founder of Oshen Studio"
                 className="w-full h-full object-cover"
               />
