@@ -18,7 +18,7 @@ const CaseStudies = () => {
     document.head.appendChild(script1);
 
     // Multiple Wistia embed scripts for different videos
-    const videoIds = ['8gywrfd4p3', 'uv0619hth3', 'wuikfu07dd', '1b2pvbr0d0'];
+    const videoIds = ['0fb8qag6m0', 'uv0619hth3', 'wuikfu07dd', '1b2pvbr0d0'];
     const scripts: HTMLScriptElement[] = [];
     videoIds.forEach(id => {
       const script = document.createElement('script');
