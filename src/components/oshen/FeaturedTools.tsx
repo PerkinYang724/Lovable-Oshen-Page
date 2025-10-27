@@ -21,10 +21,10 @@ const FeaturedTools = () => {
       icon: "⚡"
     },
     {
-      name: "Midjourney",
-      description: "Turning imagination into stunning visuals",
-      url: "https://midjourney.com",
-      icon: "🎨"
+      name: "NotebookLM",
+      description: "A free AI-powered notebook that allows you to study and learn anything.",
+      url: "https://notebooklm.google.com",
+      icon: "🧠"
     },
     {
       name: "Cursor",
