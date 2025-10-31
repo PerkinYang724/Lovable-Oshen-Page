@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -12,7 +12,7 @@ import saasFounderImage from '@/assets/saas-founder-guide.jpg';
 
 const formSchema = z.object({
   name: z.string().trim().min(2, { message: "Name must be at least 2 characters" }).max(100, { message: "Name must be less than 100 characters" }),
-  email: z.string().trim().email({ message: "Please enter a valid email address" }).max(255, { message: "Email must be less than 255 characters" }),
+  email: z.string().trim().min(1, { message: "Email is required" }).email({ message: "Please enter a valid email address" }).max(255, { message: "Email must be less than 255 characters" }),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -26,15 +26,16 @@ const FreeGuidePopup = () => {
   });
 
   useEffect(() => {
-    // Show popup after 15 seconds, only once per session
-    const timer = setTimeout(() => {
-      if (!hasShown) {
+    // Show popup immediately when page loads, only once per session
+    if (!hasShown) {
+      // Small delay to ensure page is fully rendered
+      const timer = setTimeout(() => {
         setIsOpen(true);
         setHasShown(true);
-      }
-    }, 15000);
+      }, 100);
 
-    return () => clearTimeout(timer);
+      return () => clearTimeout(timer);
+    }
   }, [hasShown]);
 
   const onSubmit = async (data: FormData) => {
@@ -49,9 +50,20 @@ const FreeGuidePopup = () => {
       });
 
       if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error || 'Subscription failed');
+        let errorMessage = 'Subscription failed';
+        try {
+          const error = await response.json();
+          errorMessage = error.error || errorMessage;
+        } catch {
+          // If response is not JSON, use status text
+          errorMessage = response.status === 404
+            ? 'Subscription service is not available in development. Please deploy to Vercel or set up environment variables.'
+            : `Error: ${response.statusText}`;
+        }
+        throw new Error(errorMessage);
       }
+
+      const result = await response.json();
 
       toast({
         title: "Success!",
@@ -91,8 +103,8 @@ const FreeGuidePopup = () => {
         <div className="grid md:grid-cols-2 gap-0">
           {/* Image Section */}
           <div className="relative h-64 md:h-auto overflow-hidden">
-            <img 
-              src={saasFounderImage} 
+            <img
+              src={saasFounderImage}
               alt="SaaS Founder - Video Funnels Guide"
               className="w-full h-full object-cover"
             />
@@ -109,9 +121,9 @@ const FreeGuidePopup = () => {
               <DialogTitle className="text-2xl font-bold text-white mb-3 cinematic-text-shadow">
                 Video Funnels That Sell SaaS
               </DialogTitle>
-              <p className="text-gray-300 text-sm">
+              <DialogDescription className="text-gray-300 text-sm">
                 Learn how top startups use video to drive growth. Get the exact strategies we use to double trial-to-paid conversions.
-              </p>
+              </DialogDescription>
             </DialogHeader>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">

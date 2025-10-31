@@ -6,15 +6,49 @@ import { useToast } from '@/hooks/use-toast';
 
 const Community = () => {
   const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Welcome to the Flow! 🌊",
-      description: "Check your email for the first insights.",
-    });
-    setEmail('');
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      if (!response.ok) {
+        let errorMessage = 'Subscription failed';
+        try {
+          const error = await response.json();
+          errorMessage = error.error || errorMessage;
+        } catch {
+          errorMessage = response.status === 404 
+            ? 'Subscription service is not available in development. Please deploy to Vercel or set up environment variables.'
+            : `Error: ${response.statusText}`;
+        }
+        throw new Error(errorMessage);
+      }
+
+      toast({
+        title: "Welcome to the Flow! 🌊",
+        description: "Check your email for the first insights.",
+      });
+      setEmail('');
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: error instanceof Error ? error.message : "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -42,8 +76,8 @@ const Community = () => {
               required
               className="bg-white/10 border-white/20 text-white placeholder:text-gray-400"
             />
-            <Button type="submit" className="cinematic-cta whitespace-nowrap">
-              Join the Flow →
+            <Button type="submit" disabled={isSubmitting} className="cinematic-cta whitespace-nowrap">
+              {isSubmitting ? "Joining..." : "Join the Flow →"}
             </Button>
           </form>
 
