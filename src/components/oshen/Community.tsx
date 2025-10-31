@@ -24,11 +24,11 @@ const Community = () => {
           <div className="w-20 h-20 mx-auto bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-full flex items-center justify-center mb-6">
             <Mail className="h-10 w-10 text-black" />
           </div>
-          
+
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 cinematic-text-shadow">
             Join the <span className="cinematic-gradient-text">Flow</span>
           </h2>
-          
+
           <p className="text-xl text-gray-200 mb-8 max-w-2xl mx-auto">
             Get weekly AI tools, creative insights, and behind-the-scenes stories from my journey building Oshen Studio
           </p>
