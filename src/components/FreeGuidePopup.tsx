@@ -39,9 +39,20 @@ const FreeGuidePopup = () => {
 
   const onSubmit = async (data: FormData) => {
     try {
-      // Here you would typically send the data to your backend or email service
-      // For now, we'll just show a success message and trigger the download
-      
+      // Send to Mailchimp subscription endpoint
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: data.email }),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Subscription failed');
+      }
+
       toast({
         title: "Success!",
         description: "Your free guide is downloading now. Check your email for more resources!",
@@ -60,7 +71,7 @@ const FreeGuidePopup = () => {
     } catch (error) {
       toast({
         title: "Error",
-        description: "Something went wrong. Please try again.",
+        description: error instanceof Error ? error.message : "Something went wrong. Please try again.",
         variant: "destructive",
       });
     }

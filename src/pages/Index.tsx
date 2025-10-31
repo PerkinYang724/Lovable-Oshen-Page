@@ -10,6 +10,7 @@ import AboutPerkin from '@/components/oshen/AboutPerkin';
 import Collaborate from '@/components/oshen/Collaborate';
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
+import FreeGuidePopup from '@/components/FreeGuidePopup';
 
 const Index = () => {
   return (
@@ -43,6 +44,7 @@ const Index = () => {
       </div>
       <Collaborate />
       <Footer />
+      <FreeGuidePopup />
     </div>
   );
 };
