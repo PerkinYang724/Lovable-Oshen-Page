@@ -20,23 +20,35 @@ type FormData = z.infer<typeof formSchema>;
 const FreeGuidePopup = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [hasShown, setHasShown] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm<FormData>({
     resolver: zodResolver(formSchema),
   });
 
+  // Ensure component is mounted (client-side only)
   useEffect(() => {
-    // Show popup immediately when page loads, only once per session
-    if (!hasShown) {
-      // Small delay to ensure page is fully rendered
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    // Only show popup on client-side after component is mounted
+    if (!mounted) return;
+
+    // Check if popup was already shown in this session
+    const popupShown = sessionStorage.getItem('freeGuidePopupShown');
+    
+    if (!popupShown && !hasShown) {
+      // Delay to ensure page is fully rendered and React has hydrated
       const timer = setTimeout(() => {
         setIsOpen(true);
         setHasShown(true);
-      }, 100);
+        sessionStorage.setItem('freeGuidePopupShown', 'true');
+      }, 800);
 
       return () => clearTimeout(timer);
     }
-  }, [hasShown]);
+  }, [hasShown, mounted]);
 
   const onSubmit = async (data: FormData) => {
     try {
@@ -80,6 +92,8 @@ const FreeGuidePopup = () => {
 
       reset();
       setIsOpen(false);
+      // Mark as shown even after successful submission
+      sessionStorage.setItem('freeGuidePopupShown', 'true');
     } catch (error) {
       toast({
         title: "Error",
