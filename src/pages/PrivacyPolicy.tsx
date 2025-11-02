@@ -9,7 +9,7 @@ const PrivacyPolicy = () => {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="prose prose-lg max-w-none prose-invert">
             <h1 className="text-4xl font-bold text-white border-b-2 border-white/20 pb-4 mb-6 cinematic-text-shadow">
-              Privacy Policy for ContentFarm.club
+              Privacy Policy for Oshen Studio.club
             </h1>
             <p className="text-lg text-gray-300 mb-8">
               <strong>Effective Date:</strong> 1st of June 2025
@@ -18,7 +18,7 @@ const PrivacyPolicy = () => {
             <section className="mb-8">
               <h2 className="text-2xl font-semibold text-yellow-400 mb-4">1. Introduction</h2>
               <p className="text-gray-300">
-                ContentFarm.club ("we," "us," or "our") provides online video services and values your privacy. This Privacy Policy explains how we collect, use, disclose, and protect your information when you use our website (http://contentfarm.club, the "Site").
+                Oshen Studio.club ("we," "us," or "our") provides online video services and values your privacy. This Privacy Policy explains how we collect, use, disclose, and protect your information when you use our website (http://oshenstudio.com, the "Site").
               </p>
             </section>
 
@@ -129,7 +129,7 @@ const PrivacyPolicy = () => {
             <section className="mb-8">
               <h2 className="text-2xl font-semibold text-yellow-400 mb-4">9. Children's Privacy</h2>
               <p className="text-gray-300">
-                ContentFarm.club is not intended for children under 16. We do not knowingly collect data from minors.
+                Oshen Studio.club is not intended for children under 16. We do not knowingly collect data from minors.
               </p>
             </section>
 
@@ -144,8 +144,8 @@ const PrivacyPolicy = () => {
               <h2 className="text-2xl font-semibold text-yellow-400 mb-4">11. Contact Information</h2>
               <div className="text-gray-300">
                 <p className="mb-2">For privacy inquiries:</p>
-                <p><strong>Email:</strong> hello@contentfarm.club</p>
-                <p><strong>Operator:</strong> Sole Proprietor of ContentFarm.club</p>
+                <p><strong>Email:</strong> hello@oshenstudio.com</p>
+                <p><strong>Operator:</strong> Sole Proprietor of Oshen Studio.club</p>
                 <p><strong>Location:</strong> Lisbon, Portugal</p>
               </div>
             </section>

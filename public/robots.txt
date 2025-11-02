@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://contentfarm.club/sitemap.xml
+Sitemap: https://oshenstudio.com/sitemap.xml
 
 # Disallow admin or sensitive areas (add as needed)
 # Disallow: /admin/

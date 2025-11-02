@@ -87,14 +87,14 @@ const VideoProduction = () => {
     description: "Recognized excellence in video production"
   }];
   return <div className="min-h-screen bg-background">
-      <SEO title="Professional Video Production Services | ContentFarm" description="Transform your brand with professional video production services. From strategy to final delivery, we create compelling videos that drive results for your business." keywords="video production, professional videography, video marketing, content creation, business videos" />
+      <SEO title="Creative Tools & Resources | Oshen Studio" description="Discover AI tools, creative workflows, and resources to help you build projects and design a life of focus, freedom, and flow." keywords="AI tools, creative workflows, entrepreneurship, content creation, student resources" />
       
       <StructuredData type="service" data={{
-      name: "Video Production Services",
-      description: "Professional video production and marketing services for businesses",
+      name: "Creative Tools & Resources",
+      description: "AI tools, creative workflows, and entrepreneurial insights for students and creators",
       provider: {
         "@type": "Organization",
-        name: "ContentFarm"
+        name: "Oshen Studio"
       }
     }} />
 

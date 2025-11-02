@@ -73,7 +73,7 @@ const BlogPost = () => {
     return (
       <div className="min-h-screen">
         <SEO 
-          title="Post Not Found - ContentFarm"
+          title="Post Not Found - Oshen Studio"
           description="The requested blog post could not be found."
         />
         <ModernHeader />
@@ -99,9 +99,9 @@ const BlogPost = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title={`${post.title} - ContentFarm Blog`}
-        description={post.excerpt || `Read ${post.title} on the ContentFarm blog`}
-        url={`https://contentfarm.club/blog/${post.slug.current}`}
+        title={`${post.title} - Oshen Studio Blog`}
+        description={post.excerpt || `Read ${post.title} on the Oshen Studio blog`}
+        url={`https://oshenstudio.com/blog/${post.slug.current}`}
       />
       
       <ModernHeader />

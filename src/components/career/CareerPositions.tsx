@@ -74,7 +74,7 @@ const CareerPositions = () => {
                   </ul>
                 </div>
                 
-                <a href={`mailto:kvit@contentfarm.club?subject=Application for ${position.title}`}>
+                <a href={`mailto:hello@oshenstudio.com?subject=Application for ${position.title}`}>
                   <Button className="bg-yellow-400 text-black hover:bg-yellow-500 font-semibold">
                     Apply Now
                   </Button>

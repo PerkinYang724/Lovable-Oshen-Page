@@ -1,6 +1,6 @@
 
 export const generateSitemap = () => {
-  const baseUrl = 'https://contentfarm.club';
+  const baseUrl = 'https://oshenstudio.com';
   const routes = [
     { path: '/', priority: '1.0', changefreq: 'weekly' },
     { path: '/about', priority: '0.8', changefreq: 'monthly' },

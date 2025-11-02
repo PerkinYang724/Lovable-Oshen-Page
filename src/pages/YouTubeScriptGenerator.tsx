@@ -183,10 +183,10 @@ Thanks for watching! Don't forget to subscribe for more content about ${data.top
   return (
     <div className="min-h-screen cinematic-section">
       <SEO 
-        title="YouTube Script Generator - Create Engaging Video Scripts | ContentFarm"
+        title="YouTube Script Generator - Create Engaging Video Scripts | Oshen Studio"
         description="Generate professional YouTube scripts instantly. Create engaging video content with our free script generator tool. Perfect for content creators and marketers."
         keywords="YouTube script generator, video script creator, content creation, YouTube video scripts, video marketing"
-        url="https://contentfarm.club/youtube-script-generator"
+        url="https://oshenstudio.com/youtube-script-generator"
       />
       
       <ModernHeader />

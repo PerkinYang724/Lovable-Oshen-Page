@@ -37,7 +37,7 @@ const FreeGuidePopup = () => {
 
     // Check if popup was already shown in this session
     const popupShown = sessionStorage.getItem('freeGuidePopupShown');
-    
+
     if (!popupShown && !hasShown) {
       // Delay to ensure page is fully rendered and React has hydrated
       const timer = setTimeout(() => {

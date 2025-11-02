@@ -27,8 +27,8 @@ const StructuredData = ({ type, data, services, faqs }: StructuredDataProps) => 
             "serviceType": "Video Production",
             "provider": {
               "@type": "Organization",
-              "name": "ContentFarm",
-              "url": "https://contentfarm.club"
+              "name": "Oshen Studio",
+              "url": "https://oshenstudio.com"
             },
             "hasOfferCatalog": {
               "@type": "OfferCatalog",
@@ -67,19 +67,13 @@ const StructuredData = ({ type, data, services, faqs }: StructuredDataProps) => 
         structuredData = {
           "@context": "https://schema.org",
           "@type": "Organization",
-          "name": "ContentFarm",
-          "url": "https://contentfarm.club",
-          "logo": "https://contentfarm.club/lovable-uploads/42844e19-815c-453d-9d1d-66e5ec0590fb.png",
-          "description": "Video production agency specializing in SaaS companies",
-          "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Lisbon",
-            "addressCountry": "Portugal"
-          },
-          "contactPoint": {
-            "@type": "ContactPoint",
-            "email": "kvit@contentfarm.club",
-            "contactType": "Customer Service"
+          "name": "Oshen Studio",
+          "url": "https://oshenstudio.com",
+          "logo": "https://oshenstudio.com/lovable-uploads/42844e19-815c-453d-9d1d-66e5ec0590fb.png",
+          "description": "Empowering students and creators with AI tools, creative workflows, and entrepreneurial insights",
+          "founder": {
+            "@type": "Person",
+            "name": "Perkin"
           }
         };
         break;

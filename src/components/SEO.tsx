@@ -22,7 +22,7 @@ const SEO = ({
   noIndex = false
 }: SEOProps) => {
   const location = useLocation();
-  const currentUrl = url || `https://contentfarm.club${location.pathname}`;
+  const currentUrl = url || `https://oshenstudio.com${location.pathname}`;
 
   useEffect(() => {
     // Update title

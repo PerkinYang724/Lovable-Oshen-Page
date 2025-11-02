@@ -11,7 +11,7 @@ const CareerCTA = () => {
         <p className="text-xl text-gray-300 mb-8">
           We're always looking for talented people. Send us your portfolio and let's talk!
         </p>
-        <a href="mailto:kvit@contentfarm.club?subject=General Inquiry">
+        <a href="mailto:hello@oshenstudio.com?subject=General Inquiry">
           <Button size="lg" className="bg-yellow-400 text-black hover:bg-yellow-500 font-semibold">
             Get Your Free Video Growth Plan →
           </Button>

@@ -56,7 +56,7 @@ const LovableOfferPopup = ({ isOpen: externalIsOpen, onOpenChange }: LovableOffe
   };
 
   const handleInstagramClick = () => {
-    window.open('https://instagram.com/contentfarm.club', '_blank');
+    window.open('https://instagram.com/oshenstudio', '_blank');
     setIsOpen(false);
   };
 

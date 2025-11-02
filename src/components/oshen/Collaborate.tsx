@@ -51,7 +51,7 @@ const Collaborate = () => {
           <Button 
             size="lg"
             className="cinematic-cta text-lg px-10 py-6 font-semibold shadow-2xl hover:shadow-glow transition-all duration-500 transform hover:scale-105"
-            onClick={() => window.open('mailto:hello@oshenstudio.com', '_blank')}
+            onClick={() => window.open('mailto:p@oshenstudio.com', '_blank')}
           >
             Get in Touch →
           </Button>

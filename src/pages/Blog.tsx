@@ -33,7 +33,7 @@ const Blog = () => {
     return (
       <>
         <SEO 
-          title="Blog - ContentFarm"
+          title="Blog - Oshen Studio"
           description="Latest insights, tips, and stories from the world of SaaS video production"
         />
         <ModernHeader />
@@ -71,8 +71,8 @@ const Blog = () => {
   return (
     <>
       <SEO 
-        title="Blog - ContentFarm"
-        description="Latest insights, tips, and stories from the world of SaaS video production"
+        title="Blog - Oshen Studio"
+        description="Latest insights, tips, and stories from Oshen Studio"
       />
       <ModernHeader />
       <main className="min-h-screen pt-20 cinematic-section">
