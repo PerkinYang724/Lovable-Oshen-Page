@@ -83,14 +83,15 @@ const FreeGuidePopup = () => {
       });
 
       // Trigger PDF download (you'll need to add your actual PDF file)
+
+    
       const link = document.createElement('a');
       link.href = '/path-to-your-guide.pdf'; // Replace with actual PDF path
-      link.download = 'Video-Funnels-That-Sell-SaaS.pdf';
+      link.download = 'Weekly Newsletter';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-
-      reset();
+      reset();  
       setIsOpen(false);
       // Mark as shown even after successful submission
       sessionStorage.setItem('freeGuidePopupShown', 'true');
@@ -133,10 +134,10 @@ const FreeGuidePopup = () => {
                 FREE GUIDE
               </div>
               <DialogTitle className="text-2xl font-bold text-white mb-3 cinematic-text-shadow">
-                Video Funnels That Sell SaaS
+                Build in public through my lens
               </DialogTitle>
               <DialogDescription className="text-gray-300 text-sm">
-                Learn how top startups use video to drive growth. Get the exact strategies we use to double trial-to-paid conversions.
+              learn to build something through technology, and follow my entreprenership journey
               </DialogDescription>
             </DialogHeader>
 
