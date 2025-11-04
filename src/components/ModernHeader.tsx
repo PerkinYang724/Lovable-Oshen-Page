@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, ChevronDown, Calculator } from 'lucide-react';
+import { Menu, X, ChevronDown, Calculator, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,6 +13,8 @@ const ModernHeader = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const isHomePage = location.pathname === '/';
 
   // Handle scroll for sticky behavior
   useEffect(() => {
@@ -66,8 +68,20 @@ const ModernHeader = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <div className="flex-shrink-0">
+          {/* Logo and Back Button */}
+          <div className="flex-shrink-0 flex items-center gap-4">
+            {!isHomePage && (
+              <button
+                onClick={() => {
+                  // Navigate back in history, or go to home if no history
+                  navigate(-1);
+                }}
+                className="flex items-center justify-center w-10 h-10 rounded-full bg-background/80 hover:bg-background border border-border/50 hover:border-primary/50 transition-all duration-200 hover:scale-105 group"
+                aria-label="Go back"
+              >
+                <ArrowLeft className="h-5 w-5 text-foreground group-hover:-translate-x-1 transition-transform" />
+              </button>
+            )}
             <Link 
               to="/" 
               className="text-2xl font-bold gradient-text hover:scale-105 transition-transform duration-300"

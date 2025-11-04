@@ -1,4 +1,5 @@
 import { Mic, Pen, Camera } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const CreatorJourney = () => {
   const posts = [
@@ -12,7 +13,7 @@ const CreatorJourney = () => {
     {
       icon: Pen,
       category: "What I Learned",
-      title: "Using AI Tools Daily for 6 Months",
+      title: "A curated map of AI tools",
       description: "The patterns, insights, and productivity gains from making AI part of my everyday workflow",
       image: "/lovable-uploads/IMG_20240602_153113_482.JPG"
     },
@@ -38,29 +39,44 @@ const CreatorJourney = () => {
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
-          {posts.map((post, index) => (
-            <div
-              key={index}
-              className="cinematic-card overflow-hidden hover:scale-105 transition-transform duration-300 group cursor-pointer"
-            >
-              <div className="relative h-48 overflow-hidden">
-                <img
-                  src={post.image}
-                  alt={post.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-                <div className="absolute bottom-4 left-4">
-                  <post.icon className="h-6 w-6 text-yellow-400" />
+          {posts.map((post, index) => {
+            const cardContent = (
+              <div
+                className="cinematic-card overflow-hidden hover:scale-105 transition-transform duration-300 group cursor-pointer"
+              >
+                <div className="relative h-48 overflow-hidden">
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                  <div className="absolute bottom-4 left-4">
+                    <post.icon className="h-6 w-6 text-yellow-400" />
+                  </div>
+                </div>
+                <div className="p-6">
+                  <p className="text-yellow-400 text-sm font-semibold mb-2">{post.category}</p>
+                  <h3 className="text-xl font-bold text-white mb-3">{post.title}</h3>
+                  <p className="text-gray-300">{post.description}</p>
                 </div>
               </div>
-              <div className="p-6">
-                <p className="text-yellow-400 text-sm font-semibold mb-2">{post.category}</p>
-                <h3 className="text-xl font-bold text-white mb-3">{post.title}</h3>
-                <p className="text-gray-300">{post.description}</p>
+            );
+
+            if (index === 1) {
+              return (
+                <Link key={index} to="/ai-tools" className="block">
+                  {cardContent}
+                </Link>
+              );
+            }
+
+            return (
+              <div key={index}>
+                {cardContent}
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

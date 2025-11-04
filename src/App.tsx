@@ -21,6 +21,7 @@ import ScriptGenerator from "./pages/ScriptGenerator";
 import BlogPost from "./pages/BlogPost";
 import Blog from "./pages/Blog";
 import VideoProduction from "./pages/VideoProduction";
+import AIToolsGallery from "./pages/AIToolsGallery";
 import ScrollToTop from "./components/ScrollToTop";
 
 const queryClient = new QueryClient();
@@ -44,9 +45,10 @@ const App = () => (
           <Route path="/terms-of-service" element={<TermsOfService />} />
           <Route path="/cookie-policy" element={<CookiePolicy />} />
           <Route path="/youtube-strategy" element={<YouTubeStrategy />} />
-        <Route path="/youtube-script-generator" element={<YouTubeScriptGenerator />} />
-        <Route path="/script-generator" element={<ScriptGenerator />} />
+          <Route path="/youtube-script-generator" element={<YouTubeScriptGenerator />} />
+          <Route path="/script-generator" element={<ScriptGenerator />} />
           <Route path="/video-production" element={<VideoProduction />} />
+          <Route path="/ai-tools" element={<AIToolsGallery />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
