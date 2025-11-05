@@ -144,10 +144,9 @@ const ModernHeader = () => {
         </div>
 
         {/* Mobile Navigation */}
-        <div className={`lg:hidden transition-all duration-300 overflow-hidden ${
-          isMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
-        }`}>
-          <nav className="py-6 border-t border-border/30 space-y-4">
+        {isMenuOpen && (
+          <div className="lg:hidden">
+            <nav className="py-6 border-t border-border/30 space-y-4">
             <button 
               onClick={() => {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -211,7 +210,8 @@ const ModernHeader = () => {
               </Button>
             </div>
           </nav>
-        </div>
+          </div>
+        )}
       </div>
     </header>
   );
