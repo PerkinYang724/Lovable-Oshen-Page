@@ -63,6 +63,14 @@ const CreatorJourney = () => {
               </div>
             );
 
+            if (index === 0) {
+              return (
+                <Link key={index} to="/video-gallery" className="block h-full">
+                  {cardContent}
+                </Link>
+              );
+            }
+
             if (index === 1) {
               return (
                 <Link key={index} to="/ai-tools" className="block h-full">
