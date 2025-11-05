@@ -42,9 +42,9 @@ const CreatorJourney = () => {
           {posts.map((post, index) => {
             const cardContent = (
               <div
-                className="cinematic-card overflow-hidden hover:scale-105 transition-transform duration-300 group cursor-pointer"
+                className="cinematic-card overflow-hidden hover:scale-105 transition-transform duration-300 group cursor-pointer h-full flex flex-col"
               >
-                <div className="relative h-48 overflow-hidden">
+                <div className="relative h-48 overflow-hidden flex-shrink-0">
                   <img
                     src={post.image}
                     alt={post.title}
@@ -55,24 +55,24 @@ const CreatorJourney = () => {
                     <post.icon className="h-6 w-6 text-yellow-400" />
                   </div>
                 </div>
-                <div className="p-6">
+                <div className="p-6 flex-1 flex flex-col">
                   <p className="text-yellow-400 text-sm font-semibold mb-2">{post.category}</p>
                   <h3 className="text-xl font-bold text-white mb-3">{post.title}</h3>
-                  <p className="text-gray-300">{post.description}</p>
+                  <p className="text-gray-300 flex-1">{post.description}</p>
                 </div>
               </div>
             );
 
             if (index === 1) {
               return (
-                <Link key={index} to="/ai-tools" className="block">
+                <Link key={index} to="/ai-tools" className="block h-full">
                   {cardContent}
                 </Link>
               );
             }
 
             return (
-              <div key={index}>
+              <div key={index} className="h-full">
                 {cardContent}
               </div>
             );
