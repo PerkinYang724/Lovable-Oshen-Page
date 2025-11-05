@@ -55,10 +55,10 @@ const VideoGallery = () => {
 
         {
             id: '2',
-            type: 'instagram',
-            reelUrl: 'https://www.instagram.com/p/DQbShAwkWvx/',
-            title: 'Two Sleepy People',
-            caption: 'From watching a movie @twosleepymovie that changed everything → to meeting the creator who started it all. \n this one’s personal. this one’s for the dreamers.'
+            type: 'youtube',
+            embedUrl: 'https://youtu.be/JmZU1jnlI9c?si=h9eIZWqrdilnT2qk',
+            title: '2025 AI Summit AT Santa Clara University',
+            caption: 'Hosted by AI Collaborate Club in partnership with the Ciocca Center, Supermicro, and Fellows Fund, the 2025 AI Summit brings together visionary founders, engineers, and legal experts to explore how AI is reshaping startups, law, and society — right in the heart of Silicon Valley.'
         },
     ];
 
