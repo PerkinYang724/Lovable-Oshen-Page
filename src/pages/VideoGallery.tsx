@@ -52,34 +52,14 @@ const VideoGallery = () => {
             title: 'Flow with ChatGPT',
             caption: 'Why Flow State Makes You Happier & More Productive'
         },
+
         {
             id: '2',
-            type: 'youtube',
-            embedUrl: 'https://www.youtube.com/embed/tgbNymZ7vqY',
-            title: 'AI Tools for Creators',
-            caption: 'Discover the AI tools that help me create and build faster'
-        },
-        {
-            id: '3',
-            type: 'youtube',
-            embedUrl: 'https://www.youtube.com/embed/ysz5S6PUM-U',
-            title: 'From Student Founder to Creator',
-            caption: 'My journey combining AI, creativity, and entrepreneurship'
-        },
-        {
-            id: '4',
             type: 'instagram',
-            reelUrl: 'https://www.instagram.com/reel/C6z9JrjKqf8/',
-            title: 'Quick Workflow Tips',
-            caption: 'Daily productivity hacks for creators'
+            reelUrl: 'https://www.instagram.com/p/DQbShAwkWvx/',
+            title: 'Two Sleepy People',
+            caption: 'From watching a movie @twosleepymovie that changed everything → to meeting the creator who started it all. \n this one’s personal. this one’s for the dreamers.'
         },
-        {
-            id: '5',
-            type: 'instagram',
-            reelUrl: 'https://www.instagram.com/reel/C5yA4W-PJ9v/',
-            title: 'Behind the Scenes',
-            caption: 'See how I create content with AI tools'
-        }
     ];
 
     // Load Instagram embed script dynamically
@@ -162,7 +142,7 @@ const VideoGallery = () => {
                                 className="cinematic-card rounded-2xl shadow-lg hover:scale-[1.02] transition-all duration-300 overflow-hidden bg-gray-800/40 border border-gray-700"
                             >
                                 {/* Video Container */}
-                                <div className="relative w-full" style={{ paddingBottom: video.type === 'youtube' ? '56.25%' : '177.78%' }}>
+                                <div className="relative w-full aspect-video">
                                     {video.type === 'youtube' && video.embedUrl ? (
                                         <iframe
                                             src={convertToEmbedUrl(video.embedUrl)}
@@ -173,23 +153,25 @@ const VideoGallery = () => {
                                             allowFullScreen
                                         />
                                     ) : video.type === 'instagram' && video.reelUrl ? (
-                                        <blockquote
-                                            className="instagram-media"
-                                            data-instgrm-permalink={video.reelUrl}
-                                            data-instgrm-version="14"
-                                            style={{
-                                                background: '#FFF',
-                                                border: '0',
-                                                borderRadius: '0',
-                                                margin: '0',
-                                                maxWidth: '100%',
-                                                minWidth: '326px',
-                                                padding: '0',
-                                                width: '100%'
-                                            }}
-                                        >
-                                            {/* Instagram will replace this with the actual embed */}
-                                        </blockquote>
+                                        <div className="absolute top-0 left-0 w-full h-full rounded-t-2xl overflow-hidden bg-gray-900 flex items-center justify-center">
+                                            <blockquote
+                                                className="instagram-media"
+                                                data-instgrm-permalink={video.reelUrl}
+                                                data-instgrm-version="14"
+                                                style={{
+                                                    background: '#FFF',
+                                                    border: '0',
+                                                    borderRadius: '0',
+                                                    margin: '0',
+                                                    maxWidth: '100%',
+                                                    minWidth: '326px',
+                                                    padding: '0',
+                                                    width: '100%'
+                                                }}
+                                            >
+                                                {/* Instagram will replace this with the actual embed */}
+                                            </blockquote>
+                                        </div>
                                     ) : null}
                                 </div>
 
