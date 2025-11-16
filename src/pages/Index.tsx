@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import ModernHeader from '@/components/ModernHeader';
 import Hero from '@/components/Hero';
 import MissionSection from '@/components/oshen/MissionSection';
@@ -12,6 +14,28 @@ import SEO from '@/components/SEO';
 import FreeGuidePopup from '@/components/FreeGuidePopup';
 
 const Index = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    // Handle hash navigation (e.g., /#tools)
+    if (location.hash) {
+      const hash = location.hash.substring(1); // Remove the #
+      const element = document.getElementById(hash);
+      if (element) {
+        setTimeout(() => {
+          const headerOffset = 80;
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }, 100);
+      }
+    }
+  }, [location]);
+
   return (
     <div className="min-h-screen">
       <SEO

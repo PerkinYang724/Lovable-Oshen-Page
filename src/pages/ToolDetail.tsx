@@ -1,5 +1,6 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, ExternalLink, Play, BookOpen, Star, Clock } from 'lucide-react';
+import { useEffect } from 'react';
 import ModernHeader from '@/components/ModernHeader';
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
@@ -34,12 +35,13 @@ const toolsData: Record<string, {
         title: string;
         excerpt: string;
         date: string;
+        content?: string; // Full blog post content in markdown/HTML
     }[];
 }> = {
     'chatgpt': {
         name: 'ChatGPT',
-        icon: '🤖',
-        description: 'My go-to for brainstorming and content creation',
+        icon: '/lovable-uploads/chatgpt-logo.png',
+        description: 'Ideas are where it begins. Chat is how you bring them to life.',
         externalUrl: 'https://chat.openai.com',
         review: {
             rating: 4,
@@ -73,7 +75,38 @@ const toolsData: Record<string, {
                 slug: 'chatgpt-content-creation',
                 title: 'How I Use ChatGPT for Video Script Writing',
                 excerpt: 'Discover my workflow for creating compelling video scripts using ChatGPT as a creative partner.',
-                date: '2024-01-15'
+                date: '2024-01-15',
+                content: `
+# How I Use ChatGPT for Video Script Writing
+
+As a content creator, one of my biggest challenges has always been turning ideas into compelling video scripts. That's where ChatGPT has become an indispensable tool in my workflow.
+
+## My Process
+
+### 1. Brainstorming Phase
+I start by giving ChatGPT a rough idea or topic. For example, "I want to create a video about AI tools for creators." ChatGPT helps me expand on this, suggesting angles, key points, and even potential hooks.
+
+### 2. Outline Creation
+Once I have a direction, I ask ChatGPT to create a structured outline. It helps me organize my thoughts into:
+- Hook (first 15 seconds)
+- Main points (3-5 key sections)
+- Call to action
+
+### 3. Script Writing
+This is where ChatGPT really shines. I provide the outline and ask it to write in my voice - conversational, engaging, and authentic. I iterate back and forth, refining until it sounds like me.
+
+### 4. Refinement
+I never publish ChatGPT's first draft. Instead, I use it as a starting point, adding personal anecdotes, examples, and my unique perspective.
+
+## Key Tips
+
+- **Be specific**: The more context you give ChatGPT, the better the output
+- **Iterate**: Don't settle for the first response
+- **Add your voice**: Always personalize the content
+- **Use it as a tool**: Not a replacement for your creativity
+
+ChatGPT has made me more productive, but it hasn't replaced my creative process - it's enhanced it.
+                `
             }
         ]
     },
@@ -115,7 +148,45 @@ const toolsData: Record<string, {
                 slug: 'notion-for-creators',
                 title: 'My Notion Setup for Content Creators',
                 excerpt: 'A deep dive into how I organize my entire creative workflow in Notion.',
-                date: '2024-02-10'
+                date: '2024-02-10',
+                content: `
+# My Notion Setup for Content Creators
+
+Notion has become the central hub for my entire creative workflow. Here's how I've organized it to maximize productivity and creativity.
+
+## The Structure
+
+### Content Calendar
+I use a database view to track all my content ideas, scheduled posts, and published pieces. Each entry includes:
+- Status (Idea, In Progress, Scheduled, Published)
+- Content type (Video, Blog, Social)
+- Due dates
+- Notes and research
+
+### Project Templates
+For each new project, I create a page with:
+- Project brief
+- Research notes
+- Script drafts
+- Asset checklist
+- Publishing checklist
+
+### Resource Library
+A database of all the tools, templates, and resources I use. This makes it easy to reference things quickly.
+
+## Key Features I Use
+
+**Databases**: For tracking content, projects, and resources
+**Templates**: To standardize my workflow
+**Relations**: To connect related content and projects
+**Formulas**: To calculate deadlines and track progress
+
+## Why It Works
+
+The beauty of Notion is its flexibility. I can adapt it as my needs change, and everything is in one place. No more switching between apps or losing track of ideas.
+
+If you're a creator looking to get organized, I highly recommend giving Notion a try. Start simple, and let it grow with your needs.
+                `
             }
         ]
     },
@@ -261,6 +332,9 @@ const toolsData: Record<string, {
     }
 };
 
+// Export toolsData so BlogPost can access it
+export { toolsData };
+
 const convertToEmbedUrl = (url: string): string => {
     // Handle YouTube URLs
     if (url.includes('youtube.com/watch?v=')) {
@@ -279,7 +353,35 @@ const convertToEmbedUrl = (url: string): string => {
 
 const ToolDetail = () => {
     const { slug } = useParams<{ slug: string }>();
+    const navigate = useNavigate();
     const tool = slug ? toolsData[slug] : null;
+
+    const handleBackToTools = (e: React.MouseEvent) => {
+        e.preventDefault();
+        navigate('/#tools');
+        // Scroll to tools section after navigation
+        // Use a longer timeout to ensure the page has loaded
+        setTimeout(() => {
+            const scrollToTools = () => {
+                const toolsSection = document.getElementById('tools');
+                if (toolsSection) {
+                    // Account for header height
+                    const headerOffset = 80;
+                    const elementPosition = toolsSection.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                } else {
+                    // Retry if element not found yet
+                    setTimeout(scrollToTools, 100);
+                }
+            };
+            scrollToTools();
+        }, 200);
+    };
 
     if (!tool) {
         return (
@@ -320,13 +422,13 @@ const ToolDetail = () => {
             {/* Hero Section */}
             <section className="pt-32 pb-16 px-4 sm:px-6 lg:px-8">
                 <div className="max-w-7xl mx-auto">
-                    <Link
-                        to="/"
+                    <button
+                        onClick={handleBackToTools}
                         className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors mb-8"
                     >
                         <ArrowLeft className="h-4 w-4" />
                         Back to Tools
-                    </Link>
+                    </button>
 
                     <div className="flex flex-col md:flex-row items-start md:items-center gap-6 mb-8">
                         <div className="text-6xl md:text-7xl">

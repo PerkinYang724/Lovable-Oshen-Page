@@ -31,13 +31,13 @@ const FeaturedTools = () => {
       name: "Cursor",
       description: "AI-powered coding that feels like magic",
       slug: "cursor",
-      icon: "💻"
+      icon: "/lovable-uploads/cursor-logo.png"
     },
     {
       name: "Make.com",
       description: "Building complex automations with ease",
       slug: "make-com",
-      icon: "🔧"
+      icon: "/lovable-uploads/make-logo.png"
     }
   ];
 
