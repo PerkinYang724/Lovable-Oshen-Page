@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { toast } from '@/hooks/use-toast';
-import saasFounderImage from '@/assets/founder.jpeg';
+import saasFoundersImage from '@/assets/founder.jpeg';
 
 const formSchema = z.object({
   name: z.string().trim().min(2, { message: "Name must be at least 2 characters" }).max(100, { message: "Name must be less than 100 characters" }),
@@ -84,14 +84,14 @@ const FreeGuidePopup = () => {
 
       // Trigger PDF download (you'll need to add your actual PDF file)
 
-    
+
       const link = document.createElement('a');
       link.href = '/path-to-your-guide.pdf'; // Replace with actual PDF path
       link.download = 'Weekly Newsletter';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      reset();  
+      reset();
       setIsOpen(false);
       // Mark as shown even after successful submission
       sessionStorage.setItem('freeGuidePopupShown', 'true');
@@ -119,7 +119,7 @@ const FreeGuidePopup = () => {
           {/* Image Section */}
           <div className="relative h-64 md:h-auto overflow-hidden">
             <img
-              src={saasFounderImage}
+              src={saasFoundersImage}
               alt="SaaS Founder - Video Funnels Guide"
               className="w-full h-full object-cover"
             />
@@ -137,7 +137,7 @@ const FreeGuidePopup = () => {
                 Build in public through my lens
               </DialogTitle>
               <DialogDescription className="text-gray-300 text-sm">
-              learn to build something through technology, and follow my entreprenership journey
+                learn to build something through technology, and follow my entreprenership journey
               </DialogDescription>
             </DialogHeader>
 

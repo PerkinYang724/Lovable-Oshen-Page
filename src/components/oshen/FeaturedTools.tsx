@@ -1,41 +1,42 @@
-import { ExternalLink } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const FeaturedTools = () => {
   const tools = [
     {
       name: "ChatGPT",
       description: "My go-to for brainstorming and content creation",
-      url: "https://chat.openai.com",
-      icon: "🤖"
+      slug: "chatgpt",
+      icon: "/lovable-uploads/chatgpt-logo.png"
     },
     {
       name: "Notion",
       description: "Perfect for organizing life and creative projects",
-      url: "https://notion.so",
-      icon: "📝"
+      slug: "notion",
+      icon: "/lovable-uploads/notion-logo.png" // Replace with your Notion logo image path
     },
     {
       name: "n8n",
       description: "My favorite tool for automating workflows",
-      url: "https://n8n.io",
-      icon: "⚡"
+      slug: "n8n",
+      icon: "/lovable-uploads/n8n-logo.png"
     },
     {
       name: "NotebookLM",
       description: "A free AI-powered notebook that allows you to study and learn anything.",
-      url: "https://notebooklm.google.com",
-      icon: "🧠"
+      slug: "notebooklm",
+      icon: "/lovable-uploads/notebookLM-logo.png"
     },
     {
       name: "Cursor",
       description: "AI-powered coding that feels like magic",
-      url: "https://cursor.sh",
+      slug: "cursor",
       icon: "💻"
     },
     {
       name: "Make.com",
       description: "Building complex automations with ease",
-      url: "https://make.com",
+      slug: "make-com",
       icon: "🔧"
     }
   ];
@@ -54,20 +55,27 @@ const FeaturedTools = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {tools.map((tool, index) => (
-            <a
+            <Link
               key={index}
-              href={tool.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="cinematic-card p-6 hover:scale-105 transition-all duration-300 group"
+              to={`/tools/${tool.slug}`}
+              className="cinematic-card p-6 hover:scale-105 transition-all duration-300 group no-underline block cursor-pointer"
+              style={{ color: 'inherit', textDecoration: 'none' }}
             >
               <div className="flex items-start justify-between mb-4">
-                <span className="text-4xl">{tool.icon}</span>
-                <ExternalLink className="h-5 w-5 text-gray-400 group-hover:text-yellow-400 transition-colors" />
+                {tool.icon.startsWith('/') || tool.icon.startsWith('http') ? (
+                  <img
+                    src={tool.icon}
+                    alt={`${tool.name} logo`}
+                    className="w-12 h-12 object-contain"
+                  />
+                ) : (
+                  <span className="text-4xl">{tool.icon}</span>
+                )}
+                <ArrowRight className="h-5 w-5 text-gray-400 group-hover:text-yellow-400 group-hover:translate-x-1 transition-all" />
               </div>
               <h3 className="text-xl font-bold text-white mb-2">{tool.name}</h3>
               <p className="text-gray-300">{tool.description}</p>
-            </a>
+            </Link>
           ))}
         </div>
       </div>

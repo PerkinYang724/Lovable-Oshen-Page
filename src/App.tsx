@@ -23,6 +23,7 @@ import Blog from "./pages/Blog";
 import VideoProduction from "./pages/VideoProduction";
 import AIToolsGallery from "./pages/AIToolsGallery";
 import VideoGallery from "./pages/VideoGallery";
+import ToolDetail from "./pages/ToolDetail";
 import ScrollToTop from "./components/ScrollToTop";
 
 const queryClient = new QueryClient();
@@ -51,6 +52,7 @@ const App = () => (
           <Route path="/video-production" element={<VideoProduction />} />
           <Route path="/ai-tools" element={<AIToolsGallery />} />
           <Route path="/video-gallery" element={<VideoGallery />} />
+          <Route path="/tools/:slug" element={<ToolDetail />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

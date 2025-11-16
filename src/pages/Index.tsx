@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import ModernHeader from '@/components/ModernHeader';
 import Hero from '@/components/Hero';
 import MissionSection from '@/components/oshen/MissionSection';
@@ -15,7 +14,7 @@ import FreeGuidePopup from '@/components/FreeGuidePopup';
 const Index = () => {
   return (
     <div className="min-h-screen">
-      <SEO 
+      <SEO
         title="Oshen Studio - AI × Flow × Freedom | Student Founder & Creator"
         description="Oshen Studio by Perkin - Empowering students and creators with AI tools, creative workflows, and entrepreneurial insights. Learn AI, build projects, and design a life of focus, freedom, and flow."
         keywords="AI tools for creators, student founder, AI workflows, creative automation, productivity tools, entrepreneurship, content creation, AI learning, student projects, tech creator"
@@ -23,7 +22,7 @@ const Index = () => {
         type="website"
         image="https://oshenstudio.com/lovable-uploads/42844e19-815c-453d-9d1d-66e5ec0590fb.png"
       />
-      
+
       <ModernHeader />
       <Hero />
       <MissionSection />
