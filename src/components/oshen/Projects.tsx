@@ -16,7 +16,7 @@ const Projects = () => {
       name: "Pomodoro Flow",
       tagline: "A focus app powered by AI",
       description: "Smart productivity tool that adapts to your work patterns and helps you achieve deep focus states",
-      demo: "#",
+      demo: "https://gemini-pomodoro-1dp1w1izr-perkins-projects-fab860b3.vercel.app",
       story: "#"
     },
     {
@@ -43,7 +43,7 @@ const Projects = () => {
 
         <div className="space-y-12">
           {projects.map((project, index) => (
-            <div 
+            <div
               key={index}
               className="cinematic-card p-8 hover:scale-[1.02] transition-transform duration-300"
             >
@@ -60,14 +60,14 @@ const Projects = () => {
                     {project.description}
                   </p>
                   <div className="flex gap-4">
-                    <Button 
+                    <Button
                       className="cinematic-cta"
                       onClick={() => window.open(project.demo, '_blank')}
                     >
                       Try Demo
                     </Button>
-                    <Button 
-                      variant="outline" 
+                    <Button
+                      variant="outline"
                       className="border-white/20 text-white hover:bg-white/10"
                       onClick={() => window.open(project.story, '_blank')}
                     >
