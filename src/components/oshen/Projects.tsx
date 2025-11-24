@@ -24,8 +24,8 @@ const Projects = () => {
       name: "AI Collaborate Club",
       tagline: "Building a student AI community",
       description: "A thriving community where students learn, experiment, and build together with AI tools",
-      demo: "#",
-      story: "#"
+      demo: "https://www.scuaiclub.com",
+      story: "https://youtu.be/NQCd6QKWQ9k"
     }
   ];
 
@@ -71,7 +71,7 @@ const Projects = () => {
                       className="border-white/20 text-white hover:bg-white/10"
                       onClick={() => window.open(project.story, '_blank')}
                     >
-                      Read Story
+                      Watch Story
                     </Button>
                   </div>
                 </div>
