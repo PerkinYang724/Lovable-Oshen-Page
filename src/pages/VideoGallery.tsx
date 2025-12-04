@@ -56,6 +56,14 @@ const VideoGallery = () => {
         {
             id: '2',
             type: 'youtube',
+            embedUrl: 'https://youtu.be/LRc1m7xPWCc',
+            title: 'How I Use Notion to Organize My Entire Day',
+            caption: 'In this video, I’m breaking down exactly how I use Notion’s Time Block template to plan my entire day — before I even start doing anything.'
+        },
+
+        {
+            id: '3',
+            type: 'youtube',
             embedUrl: 'https://youtu.be/JmZU1jnlI9c?si=h9eIZWqrdilnT2qk',
             title: '2025 AI Summit AT Santa Clara University',
             caption: 'Hosted by AI Collaborate Club in partnership with the Ciocca Center, Supermicro, and Fellows Fund, the 2025 AI Summit brings together visionary founders, engineers, and legal experts to explore how AI is reshaping startups, law, and society — right in the heart of Silicon Valley.'
