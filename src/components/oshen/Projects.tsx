@@ -16,7 +16,7 @@ const Projects = () => {
       name: "Pomodoro Flow",
       tagline: "A focus app powered by AI",
       description: "Smart productivity tool that adapts to your work patterns and helps you achieve deep focus states",
-      demo: "https://gemini-pomodoro-1dp1w1izr-perkins-projects-fab860b3.vercel.app",
+      demo: "https://gemini-pomodoro-pwa.vercel.app",
       story: "#"
     },
     {
