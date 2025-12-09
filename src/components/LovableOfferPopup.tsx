@@ -62,7 +62,7 @@ const LovableOfferPopup = ({ isOpen: externalIsOpen, onOpenChange }: LovableOffe
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="max-w-md p-0 overflow-hidden border-2 border-primary/20">
+      <DialogContent className="max-w-md p-0 overflow-hidden border-none shadow-none sm:max-w-lg">
         <button
           onClick={() => setIsOpen(false)}
           className="absolute right-3 top-3 z-50 w-8 h-8 rounded-full border-2 border-orange-500 bg-background/80 backdrop-blur-sm flex items-center justify-center transition-all duration-200 hover:bg-orange-500/10 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
@@ -71,70 +71,86 @@ const LovableOfferPopup = ({ isOpen: externalIsOpen, onOpenChange }: LovableOffe
           <span className="sr-only">Close</span>
         </button>
 
-        <div className="bg-gradient-to-br from-orange-500/10 via-background to-pink-500/10 p-6">
+        <div className="relative bg-gradient-to-br from-orange-500/10 via-background to-pink-500/10 p-8">
+          {/* Animated background elements */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div className="absolute top-0 left-0 w-32 h-32 bg-orange-500/10 rounded-full blur-3xl animate-pulse"></div>
+            <div className="absolute bottom-0 right-0 w-40 h-40 bg-pink-500/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
+          </div>
           {/* Lovable Logo */}
-          <div className="flex justify-center mb-4">
-            <img src={lovableLogo} alt="Lovable" className="h-12 w-12" />
+          <div className="flex justify-center mb-4 relative z-10">
+            <div className="relative">
+              <img src={lovableLogo} alt="Lovable" className="h-16 w-16 transform transition-transform hover:scale-110" />
+              <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-pink-500 blur-xl opacity-30 animate-pulse"></div>
+            </div>
           </div>
 
           {/* Countdown Timer */}
-          <div className="mb-4 text-center">
-            <div className="inline-block bg-destructive/90 text-destructive-foreground px-4 py-1.5 rounded-full text-xs font-bold animate-pulse">
+          <div className="mb-4 text-center relative z-10">
+            <div className="inline-block bg-gradient-to-r from-orange-500 to-pink-500 text-white px-6 py-2 rounded-full text-sm font-bold shadow-lg transform transition-all hover:scale-105">
               🔥 Expires in {formatTime(timeLeft)}
             </div>
           </div>
 
           {/* Header */}
-          <div className="text-center mb-4">
-            <div className="inline-block bg-gradient-to-r from-orange-500 to-pink-500 text-white px-3 py-1 rounded-full text-xs font-semibold mb-3">
+          <div className="text-center mb-6 relative z-10">
+            <div className="inline-block bg-gradient-to-r from-orange-500 to-pink-500 text-white px-4 py-1.5 rounded-full text-xs font-semibold mb-4 shadow-lg transform transition-all hover:scale-105 animate-bounce">
               💥 EXCLUSIVE OFFER
             </div>
-            <h2 className="text-2xl font-bold mb-2 bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent">
+            <h2 className="text-3xl font-bold mb-3 bg-gradient-to-r from-orange-500 via-pink-500 to-orange-500 bg-clip-text text-transparent animate-gradient bg-[length:200%_auto]">
               Special for Lovable Users
             </h2>
-            <p className="text-sm text-muted-foreground font-medium">
+            <p className="text-base text-muted-foreground font-semibold">
               Limited Time Only!
             </p>
           </div>
 
           {/* Main Offer Box */}
-          <div className="bg-card border-2 border-primary/20 rounded-lg p-4 mb-4 shadow-lg">
-            <div className="text-center mb-3">
-              <div className="text-xl font-bold text-primary mb-2">
-                3 Social Media Videos
+          <div className="relative z-10 bg-gradient-to-br from-card via-card to-primary/5 border-2 border-gradient-to-r from-orange-500 to-pink-500 rounded-xl p-6 mb-6 shadow-2xl transform transition-all hover:scale-[1.02] hover:shadow-3xl">
+            <div className="absolute inset-0 bg-gradient-to-r from-orange-500/10 to-pink-500/10 rounded-xl"></div>
+            <div className="relative z-10">
+              <div className="text-center mb-4">
+                <div className="text-2xl font-bold text-primary mb-3 tracking-tight">
+                  3 Social Media Videos
+                </div>
+                <div className="flex items-center justify-center gap-4 mb-3">
+                  <span className="text-xl text-muted-foreground line-through opacity-70">$250</span>
+                  <div className="relative">
+                    <span className="text-5xl font-extrabold bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent drop-shadow-lg">
+                      $100
+                    </span>
+                    <div className="absolute -inset-2 bg-gradient-to-r from-orange-500/20 to-pink-500/20 blur-lg rounded-full"></div>
+                  </div>
+                </div>
+                <p className="text-sm text-muted-foreground italic font-semibold">For Lovable Users Only</p>
               </div>
-              <div className="flex items-center justify-center gap-3 mb-2">
-                <span className="text-lg text-muted-foreground line-through">$250</span>
-                <span className="text-3xl font-bold bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent">
-                  $100
-                </span>
-              </div>
-              <p className="text-xs text-muted-foreground italic">For Lovable Users Only</p>
-            </div>
 
-            <p className="text-center text-sm text-foreground/80 mb-3">
-              Perfect for founders who need scroll-stopping content fast.
-            </p>
-
-            <div className="bg-primary/5 rounded-lg p-3">
-              <p className="text-center text-sm font-semibold text-foreground">
-                🔥 Full production: editing, captions, pacing & hooks
+              <p className="text-center text-base text-foreground/90 mb-4 font-medium">
+                Perfect for founders who need scroll-stopping content fast.
               </p>
+
+              <div className="bg-gradient-to-r from-orange-500/10 to-pink-500/10 border border-primary/20 rounded-lg p-4 shadow-inner">
+                <p className="text-center text-base font-bold text-foreground">
+                  🔥 Full production: editing, captions, pacing & hooks
+                </p>
+              </div>
             </div>
           </div>
 
           {/* CTA Button */}
-          <div className="text-center mb-3">
+          <div className="text-center mb-4 relative z-10">
             <Button 
               onClick={handleInstagramClick}
-              className="w-full bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white font-bold shadow-lg hover:shadow-xl transition-all"
+              className="w-full bg-gradient-to-r from-orange-500 via-pink-500 to-orange-500 bg-[length:200%_auto] hover:bg-[length:300%_auto] text-white font-bold text-lg py-6 shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105 animate-gradient"
             >
-              👉 DM "LOVABLE" on Instagram
+              <span className="flex items-center justify-center gap-2">
+                👉 DM "LOVABLE" on Instagram
+              </span>
             </Button>
           </div>
 
           {/* Fine Print */}
-          <p className="text-center text-xs text-muted-foreground">
+          <p className="text-center text-sm text-muted-foreground font-medium relative z-10">
             Get agency-grade video content for startup prices.
           </p>
         </div>

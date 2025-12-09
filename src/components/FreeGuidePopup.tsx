@@ -1,35 +1,73 @@
-import { useState, useEffect } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Download, X } from 'lucide-react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { toast } from '@/hooks/use-toast';
-import saasFoundersImage from '@/assets/founder.jpeg';
-
-const formSchema = z.object({
-  name: z.string().trim().min(2, { message: "Name must be at least 2 characters" }).max(100, { message: "Name must be less than 100 characters" }),
-  email: z.string().trim().min(1, { message: "Email is required" }).email({ message: "Please enter a valid email address" }).max(255, { message: "Email must be less than 255 characters" }),
-});
-
-type FormData = z.infer<typeof formSchema>;
+import { useState, useEffect, useRef } from 'react';
+import { X } from 'lucide-react';
 
 const FreeGuidePopup = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [hasShown, setHasShown] = useState(false);
   const [mounted, setMounted] = useState(false);
-
-  const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm<FormData>({
-    resolver: zodResolver(formSchema),
-  });
+  const scriptLoaded = useRef(false);
+  const formContainerRef = useRef<HTMLDivElement>(null);
 
   // Ensure component is mounted (client-side only)
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // Inject CSS to remove white edges from eomail5 form
+  useEffect(() => {
+    if (isOpen) {
+      const style = document.createElement('style');
+      style.id = 'eomail5-popup-styles';
+      style.textContent = `
+        #eomail5-form-container,
+        #eomail5-form-container * {
+          margin: 0 !important;
+          padding: 0 !important;
+        }
+        #eomail5-form-container form {
+          padding: 0 !important;
+          margin: 0 !important;
+        }
+        #eomail5-form-container iframe {
+          border: none !important;
+          margin: 0 !important;
+          padding: 0 !important;
+        }
+      `;
+      document.head.appendChild(style);
+
+      return () => {
+        const existingStyle = document.getElementById('eomail5-popup-styles');
+        if (existingStyle) {
+          existingStyle.remove();
+        }
+      };
+    }
+  }, [isOpen]);
+
+  // Load eomail5 script when popup opens
+  useEffect(() => {
+    if (isOpen && !scriptLoaded.current && formContainerRef.current) {
+      // Check if script already exists in the document
+      const existingScript = document.querySelector('script[src*="eomail5.com/form"]');
+
+      if (!existingScript) {
+        // Create and load the script using the exact format provided
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://eomail5.com/form/426bb05c-d4bf-11f0-8d00-e31909f50d20.js';
+        script.setAttribute('data-form', '426bb05c-d4bf-11f0-8d00-e31909f50d20');
+
+        // Append script to form container
+        formContainerRef.current.appendChild(script);
+        scriptLoaded.current = true;
+      } else {
+        // Script already exists, just mark as loaded
+        scriptLoaded.current = true;
+        // The form should render automatically if the script is already loaded
+      }
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     // Only show popup on client-side after component is mounted
@@ -39,163 +77,54 @@ const FreeGuidePopup = () => {
     const popupShown = sessionStorage.getItem('freeGuidePopupShown');
 
     if (!popupShown && !hasShown) {
-      // Delay to ensure page is fully rendered and React has hydrated
+      // Show popup after 3 seconds (3000ms)
       const timer = setTimeout(() => {
         setIsOpen(true);
         setHasShown(true);
         sessionStorage.setItem('freeGuidePopupShown', 'true');
-      }, 800);
+      }, 3000);
 
       return () => clearTimeout(timer);
     }
   }, [hasShown, mounted]);
 
-  const onSubmit = async (data: FormData) => {
-    try {
-      // Send to Mailchimp subscription endpoint
-      const response = await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email: data.email }),
-      });
+  const handleClose = () => {
+    setIsOpen(false);
+  };
 
-      if (!response.ok) {
-        let errorMessage = 'Subscription failed';
-        try {
-          const error = await response.json();
-          errorMessage = error.error || errorMessage;
-        } catch {
-          // If response is not JSON, use status text
-          errorMessage = response.status === 404
-            ? 'Subscription service is not available in development. Please deploy to Vercel or set up environment variables.'
-            : `Error: ${response.statusText}`;
-        }
-        throw new Error(errorMessage);
-      }
-
-      const result = await response.json();
-
-      toast({
-        title: "Success!",
-        description: "Your free guide is downloading now. Check your email for more resources!",
-      });
-
-      // Trigger PDF download (you'll need to add your actual PDF file)
-
-
-      const link = document.createElement('a');
-      link.href = '/path-to-your-guide.pdf'; // Replace with actual PDF path
-      link.download = 'Weekly Newsletter';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      reset();
-      setIsOpen(false);
-      // Mark as shown even after successful submission
-      sessionStorage.setItem('freeGuidePopupShown', 'true');
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: error instanceof Error ? error.message : "Something went wrong. Please try again.",
-        variant: "destructive",
-      });
+  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    // Close if clicking on overlay (not the popup box)
+    if (e.target === e.currentTarget) {
+      handleClose();
     }
   };
 
+  if (!isOpen) return null;
+
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="sm:max-w-[600px] p-0 overflow-hidden bg-gradient-to-br from-gray-900 to-black border-yellow-400/20">
+    <div
+      className="fixed inset-0 bg-black/65 backdrop-blur-sm z-[9999] flex items-center justify-center px-4 animate-in fade-in duration-300"
+      onClick={handleOverlayClick}
+    >
+      <div className="bg-white max-w-[420px] w-full rounded-2xl relative shadow-2xl animate-in zoom-in-95 slide-in-from-bottom-4 duration-300 overflow-hidden">
+        {/* Close button */}
         <button
-          onClick={() => setIsOpen(false)}
-          className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground z-10"
+          onClick={handleClose}
+          className="absolute right-3 top-3 z-10 rounded-full p-1.5 bg-gray-100 hover:bg-gray-200 transition-all opacity-80 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2"
+          aria-label="Close popup"
         >
-          <X className="h-4 w-4 text-white" />
-          <span className="sr-only">Close</span>
+          <X className="h-4 w-4 text-gray-700" />
         </button>
 
-        <div className="grid md:grid-cols-2 gap-0">
-          {/* Image Section */}
-          <div className="relative h-64 md:h-auto overflow-hidden">
-            <img
-              src={saasFoundersImage}
-              alt="SaaS Founder - Video Funnels Guide"
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-          </div>
-
-          {/* Form Section */}
-          <div className="p-8">
-            <DialogHeader className="mb-6">
-              <div className="inline-flex items-center gap-2 bg-yellow-400/20 text-yellow-400 px-3 py-1 rounded-full text-sm font-semibold mb-4 w-fit">
-                <Download className="h-4 w-4" />
-                FREE GUIDE
-              </div>
-              <DialogTitle className="text-2xl font-bold text-white mb-3 cinematic-text-shadow">
-                Build in public through my lens
-              </DialogTitle>
-              <DialogDescription className="text-gray-300 text-sm">
-                learn to build something through technology, and follow my entreprenership journey
-              </DialogDescription>
-            </DialogHeader>
-
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="name" className="text-white">
-                  Your Name *
-                </Label>
-                <Input
-                  id="name"
-                  {...register('name')}
-                  placeholder="John Doe"
-                  className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:border-yellow-400"
-                />
-                {errors.name && (
-                  <p className="text-red-400 text-sm">{errors.name.message}</p>
-                )}
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="email" className="text-white">
-                  Work Email *
-                </Label>
-                <Input
-                  id="email"
-                  type="email"
-                  {...register('email')}
-                  placeholder="john@company.com"
-                  className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:border-yellow-400"
-                />
-                {errors.email && (
-                  <p className="text-red-400 text-sm">{errors.email.message}</p>
-                )}
-              </div>
-
-              <Button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full cinematic-cta font-semibold"
-              >
-                {isSubmitting ? (
-                  "Downloading..."
-                ) : (
-                  <>
-                    <Download className="mr-2 h-4 w-4" />
-                    Download Free PDF
-                  </>
-                )}
-              </Button>
-
-              <p className="text-xs text-gray-400 text-center">
-                We respect your privacy. Unsubscribe at any time.
-              </p>
-            </form>
-          </div>
-        </div>
-      </DialogContent>
-    </Dialog>
+        {/* eomail5 form container - no padding to remove white edges */}
+        <div
+          ref={formContainerRef}
+          id="eomail5-form-container"
+          data-form="426bb05c-d4bf-11f0-8d00-e31909f50d20"
+          className="eomail5-form-container"
+        ></div>
+      </div>
+    </div>
   );
 };
 

@@ -11,22 +11,20 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         return res.status(400).json({ error: 'Valid email is required' });
     }
 
-    const apiKey = process.env.MAILCHIMP_API_KEY;
-    const audienceId = process.env.MAILCHIMP_AUDIENCE_ID;
-    const serverPrefix = process.env.MAILCHIMP_SERVER_PREFIX;
+    const apiKey = process.env.EMAILOCTOPUS_API_KEY;
+    const listId = process.env.EMAILOCTOPUS_LIST_ID;
 
-    if (!apiKey || !audienceId || !serverPrefix) {
-        return res.status(500).json({ error: 'Missing Mailchimp environment variables' });
+    if (!apiKey || !listId) {
+        return res.status(500).json({ error: 'Missing EmailOctopus environment variables' });
     }
 
-    const url = `https://${serverPrefix}.api.mailchimp.com/3.0/lists/${audienceId}/members`;
-    const data = { email_address: email, status: 'subscribed' };
+    const url = `https://emailoctopus.com/api/1.6/lists/${listId}/contacts?api_key=${apiKey}`;
+    const data = { email_address: email };
 
     try {
         const response = await fetch(url, {
             method: 'POST',
             headers: {
-                Authorization: `apikey ${apiKey}`,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data),
@@ -34,8 +32,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
         if (!response.ok) {
             const err = await response.json();
-            console.error('Mailchimp error:', err);
-            return res.status(400).json({ error: err.detail || 'Subscription failed' });
+            console.error('EmailOctopus error:', err);
+            return res.status(400).json({ error: err.error?.message || 'Subscription failed' });
         }
 
         console.log('✅ Subscribed:', email);
