@@ -1,117 +1,45 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Mail } from 'lucide-react';
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 
 const Community = () => {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
-  const hiddenFormRef = useRef<HTMLDivElement>(null);
-  const scriptLoaded = useRef(false);
-
-  // Load eomail5 script and create hidden form
-  useEffect(() => {
-    if (!scriptLoaded.current && hiddenFormRef.current) {
-      // Check if script already exists in the document
-      const existingScript = document.querySelector('script[src*="eomail5.com/form"]');
-
-      if (!existingScript) {
-        // Create and load the script
-        const script = document.createElement('script');
-        script.async = true;
-        script.src = 'https://eomail5.com/form/426bb05c-d4bf-11f0-8d00-e31909f50d20.js';
-        script.setAttribute('data-form', '426bb05c-d4bf-11f0-8d00-e31909f50d20');
-
-        // Append script to hidden form container
-        hiddenFormRef.current.appendChild(script);
-        scriptLoaded.current = true;
-      } else {
-        scriptLoaded.current = true;
-      }
-    }
-  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
-      // Wait for eomail5 form to be ready
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
 
-      // Try to find and interact with the eomail5 form
-      const container = hiddenFormRef.current;
-      if (!container) {
-        throw new Error('Form container not found');
-      }
-
-      // Method 1: Try to find form in iframe
-      const iframe = container.querySelector('iframe');
-      if (iframe) {
+      if (!response.ok) {
+        let errorMessage = 'Subscription failed';
         try {
-          const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
-          if (iframeDoc) {
-            const form = iframeDoc.querySelector('form');
-            const emailInput = iframeDoc.querySelector('input[type="email"], input[name*="email"], input[id*="email"]') as HTMLInputElement;
-
-            if (emailInput && form) {
-              emailInput.value = email;
-              emailInput.dispatchEvent(new Event('input', { bubbles: true }));
-              emailInput.dispatchEvent(new Event('change', { bubbles: true }));
-
-              // Try to find and click submit button
-              const submitBtn = iframeDoc.querySelector('button[type="submit"], input[type="submit"], button:not([type])') as HTMLElement;
-              if (submitBtn) {
-                submitBtn.click();
-              } else {
-                form.submit();
-              }
-
-              toast({
-                title: "Welcome to the Flow! 🌊",
-                description: "Check your email for the first insights.",
-              });
-              setEmail('');
-              setIsSubmitting(false);
-              return;
-            }
-          }
-        } catch (err) {
-          // Cross-origin restriction - can't access iframe
-          console.log('Cannot access iframe (cross-origin)');
+          const error = await response.json();
+          errorMessage = error.error || errorMessage;
+        } catch {
+          errorMessage = response.status === 404
+            ? 'Subscription service is not available in development. Please deploy to Vercel or set up environment variables.'
+            : `Error: ${response.statusText}`;
         }
+        throw new Error(errorMessage);
       }
 
-      // Method 2: Try to find form directly in container
-      const form = container.querySelector('form');
-      if (form) {
-        const emailInput = form.querySelector('input[type="email"], input[name*="email"], input[id*="email"]') as HTMLInputElement;
-        if (emailInput) {
-          emailInput.value = email;
-          emailInput.dispatchEvent(new Event('input', { bubbles: true }));
-          emailInput.dispatchEvent(new Event('change', { bubbles: true }));
-
-          const submitBtn = form.querySelector('button[type="submit"], input[type="submit"]') as HTMLElement;
-          if (submitBtn) {
-            submitBtn.click();
-          } else {
-            form.submit();
-          }
-
-          toast({
-            title: "Welcome to the Flow! 🌊",
-            description: "Check your email for the first insights.",
-          });
-          setEmail('');
-          setIsSubmitting(false);
-          return;
-        }
-      }
-
-      // If we can't programmatically submit, show error
-      throw new Error('Unable to submit to eomail5. Please try the popup form instead.');
+      toast({
+        title: "Welcome to the Flow! 🌊",
+        description: "Check your email for the first insights.",
+      });
+      setEmail('');
     } catch (error) {
       toast({
         title: "Error",
@@ -158,14 +86,6 @@ const Community = () => {
           </p>
         </div>
       </div>
-
-      {/* Hidden eomail5 form container for submission */}
-      <div
-        ref={hiddenFormRef}
-        id="eomail5-community-hidden-form"
-        data-form="426bb05c-d4bf-11f0-8d00-e31909f50d20"
-        style={{ position: 'absolute', visibility: 'hidden', height: 0, overflow: 'hidden' }}
-      ></div>
     </section>
   );
 };
