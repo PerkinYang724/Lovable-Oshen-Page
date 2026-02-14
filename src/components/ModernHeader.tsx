@@ -1,13 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, ChevronDown, Calculator, ArrowLeft } from 'lucide-react';
+import { Menu, X, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
 
 const ModernHeader = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -16,7 +10,6 @@ const ModernHeader = () => {
   const navigate = useNavigate();
   const isHomePage = location.pathname === '/';
 
-  // Handle scroll for sticky behavior
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 0);
@@ -25,7 +18,6 @@ const ModernHeader = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Handle scrolling to sections when navigating from other pages
   useEffect(() => {
     if (location.pathname === '/' && location.hash) {
       const element = document.querySelector(location.hash);
@@ -37,179 +29,108 @@ const ModernHeader = () => {
     }
   }, [location]);
 
-  const handleSectionNavigation = (sectionId: string) => {
+  const scrollTo = (id: string) => {
     setIsMenuOpen(false);
-    if (location.pathname === '/') {
-      const element = document.querySelector(sectionId);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
+    const element = document.getElementById(id);
+    if (element) {
+      const headerOffset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
     }
   };
 
-  const servicesItems = [
-    { name: 'Product Demo Videos', href: '/product-demo-videos' },
-    { name: 'Shorts', href: '/shorts' },
-    { name: 'Video Production', href: '/video-production' }
-  ];
-
-  const resourcesItems = [
-    { name: 'Script Generator', href: '/youtube-script-generator' },
-    { name: 'Blog', href: '/blog' }
+  const navItems = [
+    { label: 'Tools', id: 'tools' },
+    { label: 'Projects', id: 'projects' },
+    { label: 'Journey', id: 'journey' },
+    { label: 'About', id: 'about' },
   ];
 
   return (
-    <header 
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-background/95 backdrop-blur-xl shadow-lg border-b border-border/50' 
-          : 'bg-background/90 backdrop-blur-md border-b border-border/30'
+    <header
+      className={`fixed top-0 w-full z-50 transition-all duration-500 ${
+        isScrolled
+          ? 'bg-background/80 backdrop-blur-xl border-b border-border/50'
+          : 'bg-background/60 backdrop-blur-md'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo and Back Button */}
-          <div className="flex-shrink-0 flex items-center gap-4">
+      <div className="max-w-5xl mx-auto px-6">
+        <div className="flex justify-between items-center h-12">
+          {/* Logo */}
+          <div className="flex items-center gap-3">
             {!isHomePage && (
               <button
-                onClick={() => {
-                  // Navigate back in history, or go to home if no history
-                  navigate(-1);
-                }}
-                className="flex items-center justify-center w-10 h-10 rounded-full bg-background/80 hover:bg-background border border-border/50 hover:border-primary/50 transition-all duration-200 hover:scale-105 group"
+                onClick={() => navigate(-1)}
+                className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-secondary transition-colors"
                 aria-label="Go back"
               >
-                <ArrowLeft className="h-5 w-5 text-foreground group-hover:-translate-x-1 transition-transform" />
+                <ArrowLeft className="h-4 w-4 text-foreground" />
               </button>
             )}
-            <Link 
-              to="/" 
-              className="text-2xl font-bold gradient-text hover:scale-105 transition-transform duration-300"
+            <Link
+              to="/"
+              className="text-base font-semibold tracking-tight text-foreground hover:opacity-70 transition-opacity"
             >
               Oshen Studio
             </Link>
           </div>
-          
+
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-6">
-            <button 
-              onClick={() => window.scrollTo({ top: document.getElementById('tools')?.offsetTop || 0, behavior: 'smooth' })}
-              className="text-foreground hover:text-primary transition-colors duration-200 font-medium whitespace-nowrap"
-            >
-              Tools
-            </button>
-
-            <button 
-              onClick={() => window.scrollTo({ top: document.getElementById('projects')?.offsetTop || 0, behavior: 'smooth' })}
-              className="text-foreground hover:text-primary transition-colors duration-200 font-medium whitespace-nowrap"
-            >
-              Projects
-            </button>
-
-            <button 
-              onClick={() => window.scrollTo({ top: document.getElementById('journey')?.offsetTop || 0, behavior: 'smooth' })}
-              className="text-foreground hover:text-primary transition-colors duration-200 font-medium whitespace-nowrap"
-            >
-              Journey
-            </button>
-
-            <button 
-              onClick={() => window.scrollTo({ top: document.getElementById('about')?.offsetTop || 0, behavior: 'smooth' })}
-              className="text-foreground hover:text-primary transition-colors duration-200 font-medium whitespace-nowrap"
-            >
-              About
-            </button>
+          <nav className="hidden md:flex items-center gap-8">
+            {navItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => scrollTo(item.id)}
+                className="text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {item.label}
+              </button>
+            ))}
           </nav>
 
-          {/* CTA Button */}
-          <div className="hidden md:flex items-center gap-3">
-            <Button 
-              onClick={() => window.scrollTo({ top: document.getElementById('community')?.offsetTop || 0, behavior: 'smooth' })}
-              className="btn-gradient font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+          {/* CTA */}
+          <div className="hidden md:block">
+            <Button
+              onClick={() => scrollTo('community')}
+              className="h-8 px-4 text-xs font-medium rounded-full bg-foreground text-background hover:opacity-85 transition-opacity"
             >
               Join Community
             </Button>
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden">
-            <button 
-              onClick={() => setIsMenuOpen(!isMenuOpen)} 
-              className="text-foreground hover:text-primary transition-colors duration-200 p-2"
-              aria-label="Toggle menu"
-            >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="md:hidden p-2 text-foreground"
+            aria-label="Toggle menu"
+          >
+            {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
         </div>
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="lg:hidden">
-            <nav className="py-6 border-t border-border/30 space-y-4">
-            <button 
-              onClick={() => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                setIsMenuOpen(false);
-              }}
-              className="block w-full text-left text-foreground hover:text-primary transition-colors duration-200 font-medium py-2"
-            >
-              Home
-            </button>
-
-            <button 
-              onClick={() => {
-                window.scrollTo({ top: document.getElementById('tools')?.offsetTop || 0, behavior: 'smooth' });
-                setIsMenuOpen(false);
-              }}
-              className="block w-full text-left text-foreground hover:text-primary transition-colors duration-200 font-medium py-2"
-            >
-              Tools
-            </button>
-
-            <button 
-              onClick={() => {
-                window.scrollTo({ top: document.getElementById('projects')?.offsetTop || 0, behavior: 'smooth' });
-                setIsMenuOpen(false);
-              }}
-              className="block w-full text-left text-foreground hover:text-primary transition-colors duration-200 font-medium py-2"
-            >
-              Projects
-            </button>
-
-            <button 
-              onClick={() => {
-                window.scrollTo({ top: document.getElementById('journey')?.offsetTop || 0, behavior: 'smooth' });
-                setIsMenuOpen(false);
-              }}
-              className="block w-full text-left text-foreground hover:text-primary transition-colors duration-200 font-medium py-2"
-            >
-              Journey
-            </button>
-
-            <button 
-              onClick={() => {
-                window.scrollTo({ top: document.getElementById('about')?.offsetTop || 0, behavior: 'smooth' });
-                setIsMenuOpen(false);
-              }}
-              className="block w-full text-left text-foreground hover:text-primary transition-colors duration-200 font-medium py-2"
-            >
-              About
-            </button>
-
-            {/* Mobile CTA */}
-            <div className="pt-4">
-              <Button 
-                onClick={() => {
-                  window.scrollTo({ top: document.getElementById('community')?.offsetTop || 0, behavior: 'smooth' });
-                  setIsMenuOpen(false);
-                }}
-                className="btn-gradient w-full font-semibold shadow-lg"
-              >
-                Join Community
-              </Button>
-            </div>
-          </nav>
+          <div className="md:hidden pb-6 pt-2">
+            <nav className="flex flex-col gap-1">
+              {navItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => scrollTo(item.id)}
+                  className="text-left text-sm text-muted-foreground hover:text-foreground py-2.5 px-2 rounded-lg hover:bg-secondary transition-all"
+                >
+                  {item.label}
+                </button>
+              ))}
+              <div className="pt-3 mt-2 border-t border-border">
+                <Button
+                  onClick={() => scrollTo('community')}
+                  className="w-full h-10 text-sm font-medium rounded-full bg-foreground text-background"
+                >
+                  Join Community
+                </Button>
+              </div>
+            </nav>
           </div>
         )}
       </div>

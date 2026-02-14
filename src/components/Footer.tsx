@@ -1,111 +1,86 @@
-
-import { MapPin, Linkedin } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
 const Footer = () => {
   const location = useLocation();
 
-  const handleSectionNavigation = (sectionId: string) => {
+  const scrollTo = (id: string) => {
     if (location.pathname === '/') {
-      // If already on home page, just scroll to section
-      const element = document.querySelector(sectionId);
+      const element = document.getElementById(id);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
       }
     }
-    // If not on home page, Link component will handle navigation to /#section
   };
 
   return (
-    <footer className="cinematic-section text-white py-16 border-t border-white/10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-3 gap-8">
-          <div className="space-y-4">
-            <div className="text-2xl font-bold cinematic-gradient-text">
+    <footer className="bg-card/50 border-t border-border py-16">
+      <div className="max-w-5xl mx-auto px-6">
+        <div className="grid md:grid-cols-3 gap-12">
+          <div className="space-y-3">
+            <div className="text-base font-semibold text-foreground">
               Oshen Studio
             </div>
-            <p className="text-gray-300">
+            <p className="text-sm text-muted-foreground leading-relaxed">
               Empowering students and creators with AI tools, workflows, and insights to build meaningful projects.
-            </p>
-            <p className="text-sm text-gray-400 italic">
-              "Built with creativity and AI"
             </p>
           </div>
 
           <div>
-            <h4 className="text-lg font-semibold mb-4 text-yellow-400">Explore</h4>
-            <ul className="space-y-2 text-gray-300">
-              <li>
-                <button 
-                  onClick={() => window.scrollTo({ top: document.getElementById('tools')?.offsetTop || 0, behavior: 'smooth' })}
-                  className="hover:text-yellow-400 transition-colors"
-                >
-                  AI Tools
-                </button>
-              </li>
-              <li>
-                <button 
-                  onClick={() => window.scrollTo({ top: document.getElementById('projects')?.offsetTop || 0, behavior: 'smooth' })}
-                  className="hover:text-yellow-400 transition-colors"
-                >
-                  Projects
-                </button>
-              </li>
-              <li>
-                <button 
-                  onClick={() => window.scrollTo({ top: document.getElementById('journey')?.offsetTop || 0, behavior: 'smooth' })}
-                  className="hover:text-yellow-400 transition-colors"
-                >
-                  Journey
-                </button>
-              </li>
-              <li>
-                <button 
-                  onClick={() => window.scrollTo({ top: document.getElementById('about')?.offsetTop || 0, behavior: 'smooth' })}
-                  className="hover:text-yellow-400 transition-colors"
-                >
-                  About Perkin
-                </button>
-              </li>
+            <h4 className="text-xs font-semibold text-foreground uppercase tracking-wider mb-4">Explore</h4>
+            <ul className="space-y-2.5">
+              {[
+                { label: 'AI Tools', id: 'tools' },
+                { label: 'Projects', id: 'projects' },
+                { label: 'Journey', id: 'journey' },
+                { label: 'About Perkin', id: 'about' },
+              ].map((item) => (
+                <li key={item.id}>
+                  <button
+                    onClick={() => scrollTo(item.id)}
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {item.label}
+                  </button>
+                </li>
+              ))}
             </ul>
           </div>
 
           <div>
-            <h4 className="text-lg font-semibold mb-4 text-yellow-400">Connect</h4>
-            <ul className="space-y-2 text-gray-300">
+            <h4 className="text-xs font-semibold text-foreground uppercase tracking-wider mb-4">Connect</h4>
+            <ul className="space-y-2.5">
               <li>
-                <a 
-                  href="https://instagram.com/oshenstudio" 
-                  target="_blank" 
+                <a
+                  href="https://instagram.com/oshenstudio"
+                  target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-yellow-400 transition-colors"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                 >
                   Instagram
                 </a>
               </li>
               <li>
-                <a 
-                  href="https://linkedin.com/in/perkin" 
-                  target="_blank" 
+                <a
+                  href="https://linkedin.com/in/perkin"
+                  target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-yellow-400 transition-colors flex items-center gap-2"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1.5"
                 >
-                  <Linkedin className="h-4 w-4" />
                   LinkedIn
                 </a>
               </li>
               <li>
-                <a 
+                <a
                   href="mailto:hello@oshenstudio.com"
-                  className="hover:text-yellow-400 transition-colors"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                 >
                   Email
                 </a>
               </li>
               <li>
-                <button 
-                  onClick={() => window.scrollTo({ top: document.getElementById('community')?.offsetTop || 0, behavior: 'smooth' })}
-                  className="hover:text-yellow-400 transition-colors"
+                <button
+                  onClick={() => scrollTo('community')}
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                 >
                   Newsletter
                 </button>
@@ -114,13 +89,15 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-white/10 mt-12 pt-8">
+        <div className="border-t border-border mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-gray-300 text-sm">© 2025 Oshen Studio. All rights reserved.</p>
-            <div className="flex gap-6 text-sm text-gray-300">
-              <Link to="/privacy-policy" className="hover:text-yellow-400 transition-colors">Privacy Policy</Link>
-              <Link to="/terms-of-service" className="hover:text-yellow-400 transition-colors">Terms of Service</Link>
-              <Link to="/cookie-policy" className="hover:text-yellow-400 transition-colors">Cookie Policy</Link>
+            <p className="text-xs text-muted-foreground">
+              &copy; {new Date().getFullYear()} Oshen Studio. All rights reserved.
+            </p>
+            <div className="flex gap-6 text-xs text-muted-foreground">
+              <Link to="/privacy-policy" className="hover:text-foreground transition-colors">Privacy</Link>
+              <Link to="/terms-of-service" className="hover:text-foreground transition-colors">Terms</Link>
+              <Link to="/cookie-policy" className="hover:text-foreground transition-colors">Cookies</Link>
             </div>
           </div>
         </div>

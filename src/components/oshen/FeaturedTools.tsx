@@ -13,7 +13,7 @@ const FeaturedTools = () => {
       name: "Notion",
       description: "Perfect for organizing life and creative projects",
       slug: "notion",
-      icon: "/lovable-uploads/notion-logo.png" // Replace with your Notion logo image path
+      icon: "/lovable-uploads/notion-logo.png"
     },
     {
       name: "n8n",
@@ -23,7 +23,7 @@ const FeaturedTools = () => {
     },
     {
       name: "NotebookLM",
-      description: "A free AI-powered notebook that allows you to study and learn anything.",
+      description: "A free AI-powered notebook for studying and learning",
       slug: "notebooklm",
       icon: "/lovable-uploads/notebookLM-logo.png"
     },
@@ -42,23 +42,23 @@ const FeaturedTools = () => {
   ];
 
   return (
-    <section className="py-20 cinematic-section">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-24 bg-card/50">
+      <div className="max-w-5xl mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 cinematic-text-shadow">
-            AI Tools <span className="cinematic-gradient-text">I Love</span>
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground mb-4">
+            AI Tools I Love
           </h2>
-          <p className="text-xl text-gray-200">
-            The essential toolkit that powers my creative workflow
+          <p className="text-base text-muted-foreground">
+            The essential toolkit that powers my creative workflow.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           {tools.map((tool, index) => (
             <Link
               key={index}
               to={`/tools/${tool.slug}`}
-              className="cinematic-card p-6 hover:scale-105 transition-all duration-300 group no-underline block cursor-pointer"
+              className="group bg-background border border-border rounded-2xl p-6 hover:shadow-lg transition-all duration-300 no-underline block"
               style={{ color: 'inherit', textDecoration: 'none' }}
             >
               <div className="flex items-start justify-between mb-4">
@@ -66,15 +66,15 @@ const FeaturedTools = () => {
                   <img
                     src={tool.icon}
                     alt={`${tool.name} logo`}
-                    className="w-12 h-12 object-contain"
+                    className="w-10 h-10 object-contain"
                   />
                 ) : (
-                  <span className="text-4xl">{tool.icon}</span>
+                  <span className="text-3xl">{tool.icon}</span>
                 )}
-                <ArrowRight className="h-5 w-5 text-gray-400 group-hover:text-yellow-400 group-hover:translate-x-1 transition-all" />
+                <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-foreground group-hover:translate-x-0.5 transition-all" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-2">{tool.name}</h3>
-              <p className="text-gray-300">{tool.description}</p>
+              <h3 className="text-base font-semibold text-foreground mb-1">{tool.name}</h3>
+              <p className="text-sm text-muted-foreground">{tool.description}</p>
             </Link>
           ))}
         </div>

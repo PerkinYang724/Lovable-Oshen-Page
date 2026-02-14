@@ -27,38 +27,35 @@ const CreatorJourney = () => {
   ];
 
   return (
-    <section className="py-20 cinematic-section">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-24 bg-background">
+      <div className="max-w-5xl mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 cinematic-text-shadow">
-            The <span className="cinematic-gradient-text">Journey</span>
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground mb-4">
+            The Journey
           </h2>
-          <p className="text-xl text-gray-200">
-            Reflections, insights, and lessons from building in public
+          <p className="text-base text-muted-foreground">
+            Reflections, insights, and lessons from building in public.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-6">
           {posts.map((post, index) => {
             const cardContent = (
-              <div
-                className="cinematic-card overflow-hidden hover:scale-105 transition-transform duration-300 group cursor-pointer h-full flex flex-col"
-              >
+              <div className="group bg-card border border-border rounded-2xl overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer h-full flex flex-col">
                 <div className="relative h-48 overflow-hidden flex-shrink-0">
                   <img
                     src={post.image}
                     alt={post.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-                  <div className="absolute bottom-4 left-4">
-                    <post.icon className="h-6 w-6 text-yellow-400" />
-                  </div>
                 </div>
                 <div className="p-6 flex-1 flex flex-col">
-                  <p className="text-yellow-400 text-sm font-semibold mb-2">{post.category}</p>
-                  <h3 className="text-xl font-bold text-white mb-3">{post.title}</h3>
-                  <p className="text-gray-300 flex-1">{post.description}</p>
+                  <div className="flex items-center gap-2 mb-3">
+                    <post.icon className="h-3.5 w-3.5 text-muted-foreground" />
+                    <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">{post.category}</p>
+                  </div>
+                  <h3 className="text-base font-semibold text-foreground mb-2">{post.title}</h3>
+                  <p className="text-sm text-muted-foreground flex-1 leading-relaxed">{post.description}</p>
                 </div>
               </div>
             );

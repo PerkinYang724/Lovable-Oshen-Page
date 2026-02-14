@@ -6,20 +6,16 @@ const FreeGuidePopup = () => {
   const [hasShown, setHasShown] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  // Ensure component is mounted (client-side only)
   useEffect(() => {
     setMounted(true);
   }, []);
 
   useEffect(() => {
-    // Only show popup on client-side after component is mounted
     if (!mounted) return;
 
-    // Check if popup was already shown in this session
     const popupShown = sessionStorage.getItem('freeGuidePopupShown');
 
     if (!popupShown && !hasShown) {
-      // Show popup after 3 seconds (3000ms)
       const timer = setTimeout(() => {
         setIsOpen(true);
         setHasShown(true);
@@ -35,14 +31,12 @@ const FreeGuidePopup = () => {
   };
 
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    // Close if clicking on overlay (not the popup box)
     if (e.target === e.currentTarget) {
       handleClose();
     }
   };
 
   const handleDownload = () => {
-    // Redirect to Substack subscription page
     window.open('https://perkin0909.substack.com/subscribe?next=https%3A%2F%2Fsubstack.com%2F%40perkin0909%3F&utm_source=profile-page&utm_medium=web&utm_campaign=substack_profile&just_signed_up=true', '_blank');
     handleClose();
   };
@@ -51,34 +45,34 @@ const FreeGuidePopup = () => {
 
   return (
     <div
-      className="fixed inset-0 bg-black/65 backdrop-blur-sm z-[9999] flex items-center justify-center px-4 animate-in fade-in duration-300"
+      className="fixed inset-0 bg-black/30 backdrop-blur-sm z-[9999] flex items-center justify-center px-4 animate-in fade-in duration-300"
       onClick={handleOverlayClick}
     >
-      <div className="bg-white max-w-[420px] w-full rounded-2xl relative shadow-2xl animate-in zoom-in-95 slide-in-from-bottom-4 duration-300 overflow-hidden p-8">
+      <div className="bg-background max-w-[380px] w-full rounded-3xl relative shadow-xl animate-in zoom-in-95 slide-in-from-bottom-4 duration-300 overflow-hidden p-8 border border-border">
         {/* Close button */}
         <button
           onClick={handleClose}
-          className="absolute right-3 top-3 z-10 rounded-full p-1.5 bg-gray-100 hover:bg-gray-200 transition-all opacity-80 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2"
+          className="absolute right-4 top-4 z-10 rounded-full p-1.5 hover:bg-secondary transition-colors"
           aria-label="Close popup"
         >
-          <X className="h-4 w-4 text-gray-700" />
+          <X className="h-4 w-4 text-muted-foreground" />
         </button>
 
         {/* Content */}
-        <div className="text-center space-y-6">
-          <div className="space-y-3">
-            <h2 className="text-2xl font-bold text-gray-900">
+        <div className="text-center space-y-5">
+          <div className="space-y-2">
+            <h2 className="text-xl font-bold text-foreground tracking-tight">
               Welcome to the Community
             </h2>
-            <p className="text-gray-600">
-              Building Oshen Studio. <br />
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Building Oshen Studio.<br />
               Using AI without losing ourselves.
             </p>
           </div>
 
           <button
             onClick={handleDownload}
-            className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-4 px-6 rounded-lg transition-all duration-200 flex items-center justify-center shadow-lg hover:shadow-xl"
+            className="w-full bg-foreground hover:opacity-85 text-background font-medium py-3.5 px-6 rounded-full transition-all duration-200 text-sm"
           >
             Join my newsletter
           </button>

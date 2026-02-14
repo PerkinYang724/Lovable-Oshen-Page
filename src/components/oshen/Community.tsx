@@ -1,6 +1,5 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Mail } from 'lucide-react';
 import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 
@@ -36,7 +35,7 @@ const Community = () => {
       }
 
       toast({
-        title: "Welcome to the Flow! 🌊",
+        title: "Welcome to the community",
         description: "Check your email for the first insights.",
       });
       setEmail('');
@@ -52,39 +51,37 @@ const Community = () => {
   };
 
   return (
-    <section className="py-20 cinematic-section">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="cinematic-card p-12 text-center">
-          <div className="w-20 h-20 mx-auto bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-full flex items-center justify-center mb-6">
-            <Mail className="h-10 w-10 text-black" />
-          </div>
+    <section className="py-24 bg-background">
+      <div className="max-w-xl mx-auto px-6 text-center">
+        <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground mb-4">
+          Join the Flow
+        </h2>
 
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 cinematic-text-shadow">
-            Join the <span className="cinematic-gradient-text">Flow</span>
-          </h2>
+        <p className="text-base text-muted-foreground mb-10 leading-relaxed">
+          Get weekly AI tools, creative insights, and behind-the-scenes stories from my journey building Oshen Studio.
+        </p>
 
-          <p className="text-xl text-gray-200 mb-8 max-w-2xl mx-auto">
-            Get weekly AI tools, creative insights, and behind-the-scenes stories from my journey building Oshen Studio
-          </p>
+        <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto mb-4">
+          <Input
+            type="email"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className="h-12 rounded-full px-5 bg-card border-border text-foreground placeholder:text-muted-foreground"
+          />
+          <Button
+            type="submit"
+            disabled={isSubmitting}
+            className="h-12 px-6 rounded-full bg-foreground text-background hover:opacity-85 transition-opacity text-sm font-medium whitespace-nowrap"
+          >
+            {isSubmitting ? "Joining..." : "Subscribe"}
+          </Button>
+        </form>
 
-          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-            <Input
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="bg-white/10 border-white/20 text-white placeholder:text-gray-400"
-            />
-            <Button type="submit" disabled={isSubmitting} className="cinematic-cta whitespace-nowrap">
-              {isSubmitting ? "Joining..." : "Join the Flow →"}
-            </Button>
-          </form>
-
-          <p className="text-sm text-gray-400 mt-4">
-            No spam. Unsubscribe anytime. Just valuable insights.
-          </p>
-        </div>
+        <p className="text-xs text-muted-foreground/60">
+          No spam. Unsubscribe anytime.
+        </p>
       </div>
     </section>
   );
